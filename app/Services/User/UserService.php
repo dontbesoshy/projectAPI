@@ -37,6 +37,7 @@ class UserService extends BasicService
             $user = User::query()->create([
                 'email' => $dto->email,
                 'password' => $dto->password,
+                'name' => $dto->name,
             ]);
 
             DB::commit();
