@@ -27,10 +27,12 @@ class UserService extends BasicService
      *
      * @param CreateUserDto $dto
      *
-     * @return User
+     * @return string|null
      */
-    public function create(CreateUserDto $dto): User
+    public function create(CreateUserDto $dto): null|string
     {
+        $token = null;
+
         DB::beginTransaction();
 
         try {
@@ -40,11 +42,15 @@ class UserService extends BasicService
                 'name' => $dto->name,
             ]);
 
+            $token = $user
+                ->createToken('registration', ['setCategories'], now()->addHours(5))
+                ->plainTextToken;
+
             DB::commit();
         } catch (\Throwable $th) {
             $this->rollBackThrow($th);
         }
 
-        return $user;
+        return $token;
     }
 }

@@ -32,8 +32,6 @@ class UserController extends Controller
      */
     public function store(CreateUserDto $dto): JsonResponse
     {
-        $this->userService->create($dto);
-
-        return $this->OK();
+        return $this->OK($this->userService->create($dto));
     }
 }
