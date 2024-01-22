@@ -2,29 +2,94 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\General\AuthenticationException as MyAuthenticationException;
+use App\Traits\CanThrowTrait;
+use App\Traits\JsonResponseTrait;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    use JsonResponseTrait;
+
+    use CanThrowTrait;
+
     /**
-     * The list of the inputs that are never flashed to the session on validation exceptions.
+     * Map exceptions to out custom ones.
      *
-     * @var array<int, string>
+     * @var array|string[]
+     */
+    private array $myExceptionsMap = [
+        AuthenticationException::class => MyAuthenticationException::class,
+    ];
+
+    /**
+     * A list of the exception types that are not reported.
+     *
+     * @var array
+     */
+    protected $dontReport = [
+        AuthenticationException::class,
+    ];
+
+    /**
+     * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * @var array
      */
     protected $dontFlash = [
-        'current_password',
         'password',
         'password_confirmation',
     ];
 
     /**
      * Register the exception handling callbacks for the application.
+     *
+     * @return void
      */
-    public function register(): void
+    public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        foreach ($this->myExceptionsMap as $from => $to) {
+            $this->map($from, $to);
+        }
+    }
+
+    /**
+     * Report exception.
+     *
+     * @param Throwable $e
+     *
+     * @return void
+     *
+     * @throws Throwable
+     */
+    public function report(Throwable $e): void
+    {
+        $e = $this->mapException($e);
+
+        // If it is our exception and is not reportable -> return
+        if ($e instanceof BasicException && !$e->isReportable()) {
+            return;
+        }
+
+        parent::report($e);
+    }
+
+    /**
+     * Override render method.
+     *
+     * @param $request
+     * @param Throwable $e
+     *
+     * @return mixed
+     *
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e): mixed
+    {
+        $e = $this->mapException($e);
+
+        return parent::render($request, $e);
     }
 }
