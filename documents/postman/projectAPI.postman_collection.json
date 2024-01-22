@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "a55b3482-0894-4acb-85c5-301516c94777",
+		"name": "projectAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14356440"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Show all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/users?page=1",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"new@user.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/users",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

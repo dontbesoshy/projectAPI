@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Helpers\BuilderRelationMixin;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Builder::mixin(new BuilderRelationMixin());
+        Relation::mixin(new BuilderRelationMixin());
     }
 }

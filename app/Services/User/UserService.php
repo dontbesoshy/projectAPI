@@ -17,9 +17,9 @@ class UserService extends BasicService
      */
     public function index(): UserCollection
     {
-        $users = User::all();
+        $queryBuilder = User::latest();
 
-        return new UserCollection($users);
+        return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
     }
 
     /**
