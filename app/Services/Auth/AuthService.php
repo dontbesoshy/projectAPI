@@ -2,10 +2,12 @@
 
 namespace App\Services\Auth;
 
+use App\Exceptions\Auth\UsernameOrPasswordNotValidException;
 use App\Http\Dto\User\LoginUserDto;
 use App\Models\User;
 use App\Resources\User\LoginResource;
 use App\Services\BasicService;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService extends BasicService
 {
@@ -19,6 +21,11 @@ class AuthService extends BasicService
     public function authenticate(LoginUserDto $request): LoginResource
     {
         $user = User::where('email', $request->email)->first();
+
+        $this->throwIf(
+            !$user ||!Hash::check($request->password, $user->password),
+            UsernameOrPasswordNotValidException::class
+        );
 
         $token = $user->createToken('my-app-token')->plainTextToken;
 

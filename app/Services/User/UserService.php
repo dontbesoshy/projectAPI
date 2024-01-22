@@ -43,7 +43,7 @@ class UserService extends BasicService
             ]);
 
             $token = $user
-                ->createToken('registration', ['setCategories'], now()->addHours(5))
+                ->createToken('registration', expiresAt: now()->addHours(5))
                 ->plainTextToken;
 
             DB::commit();
