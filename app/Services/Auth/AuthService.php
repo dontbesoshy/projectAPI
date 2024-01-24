@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Exceptions\Auth\UsernameOrPasswordNotValidException;
+use App\Exceptions\User\UserNotVerifiedException;
 use App\Http\Dto\User\LoginUserDto;
 use App\Models\User;
 use App\Resources\User\LoginResource;
@@ -21,6 +22,11 @@ class AuthService extends BasicService
     public function authenticate(LoginUserDto $request): LoginResource
     {
         $user = User::where('email', $request->email)->first();
+
+        $this->throwIf(
+            $user->email_verified_at === null,
+            UserNotVerifiedException::class
+        );
 
         $this->throwIf(
             !$user ||!Hash::check($request->password, $user->password),

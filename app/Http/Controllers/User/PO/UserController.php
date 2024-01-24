@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\PO;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\User\CreateUserDto;
-use App\Services\User\UserService;
+use App\Services\User\PO\UserService;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
@@ -16,16 +16,6 @@ class UserController extends Controller
      */
     public function __construct(private readonly UserService $userService)
     {
-    }
-
-    /**
-     * Return all users.
-     *
-     * @return JsonResponse
-     */
-    public function index(): JsonResponse
-    {
-        return $this->OK($this->userService->index());
     }
 
     /**

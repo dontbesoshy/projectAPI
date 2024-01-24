@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Notifications\SendEmailToUserWithTokenNotification;
+use App\Notifications\User\PO\SendEmailToUserWithTokenNotification;
 
 class UserCreatedListener
 {

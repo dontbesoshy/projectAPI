@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\User\UserAccount;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Services\User\UserAccount\UserAccountService;
+use App\Services\User\UserAccountService;
 use Illuminate\Http\JsonResponse;
 
 class UserAccountController extends Controller
@@ -18,15 +18,15 @@ class UserAccountController extends Controller
     }
 
     /**
-     * Verify user email by token.
+     * Verify user by email.
      *
      * @param string $token
      *
      * @return JsonResponse
      */
-    public function verifyUserEmail(string $token): JsonResponse
+    public function verifyRegisterToken(string $token): JsonResponse
     {
-        $this->userAccountService->verifyUserEmail($token);
+        $this->userAccountService->verifyRegisterToken($token);
         return $this->OK();
     }
 }

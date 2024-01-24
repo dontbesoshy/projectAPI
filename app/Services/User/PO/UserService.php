@@ -1,27 +1,14 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\User\PO;
 
 use App\Http\Dto\User\CreateUserDto;
 use App\Models\User;
-use App\Resources\User\UserCollection;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;
 
 class UserService extends BasicService
 {
-    /**
-     * Return all users.
-     *
-     * @return UserCollection
-     */
-    public function index(): UserCollection
-    {
-        $queryBuilder = User::latest();
-
-        return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
-    }
-
     /**
      * Create a new user.
      *

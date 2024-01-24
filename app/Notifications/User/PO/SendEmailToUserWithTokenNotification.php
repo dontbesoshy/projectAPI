@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\User\PO;
 
+use App\Models\RegisterToken;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,14 +13,11 @@ class SendEmailToUserWithTokenNotification extends Notification implements Shoul
 {
     use Queueable;
 
-    public User $user;
-
     /**
      * Create a new notification instance.
      */
-    public function __construct(User $user)
+    public function __construct(private readonly User $user, private readonly RegisterToken $registerToken)
     {
-        $this->user = $user;
     }
 
     /**
@@ -29,7 +27,7 @@ class SendEmailToUserWithTokenNotification extends Notification implements Shoul
      */
     public function via(object $notifiable): array
     {
-        return ['database', 'mail'];
+        return ['mail'];
     }
 
     /**
@@ -41,8 +39,7 @@ class SendEmailToUserWithTokenNotification extends Notification implements Shoul
             ->greeting('Witaj, ' . $this->user->name . '!')
             ->subject('Dziękujemy za rejestrację w serwisie')
             ->line('Dziękujemy za rejestrację w serwisie. Kliknij w poniższy link, aby zweryfikować swój adres e-mail.')
-            ->action('Zweryfikuj', url('/123'))
-            ->line('Dziękujemy! ');
+            ->action('Zweryfikuj', route('verifyToken', ['token' => $this->registerToken->token]));
     }
 
     /**

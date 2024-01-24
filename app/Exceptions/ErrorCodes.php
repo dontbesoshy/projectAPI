@@ -14,6 +14,8 @@ class ErrorCodes
     * USER ERROR CODES
     */
     public const USER_NOT_FOUND = 'usr-0001';
+    public const REGISTER_TOKEN_NOT_VALID = 'usr-0002';
+    public const USER_NOT_VERIFIED = 'usr-0003';
 
     /*
      * AUTH ERROR CODES
