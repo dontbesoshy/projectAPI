@@ -3,10 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class RegisterTokenFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,11 +15,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'John Doe',
-            'email' => 'test@test.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'user_id' => 1,
+            'token' => Str::uuid(),
         ];
     }
 }
