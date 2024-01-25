@@ -39,7 +39,7 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
+@lang(__('email.main.regards'))<br>
 {{ config('app.name') }}
 @endif
 
@@ -47,8 +47,7 @@
 @isset($actionText)
 <x-slot:subcopy>
 @lang(
-    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    __('email.main.below'),
     [
         'actionText' => $actionText,
     ]

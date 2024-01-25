@@ -36,10 +36,18 @@ class SendEmailToUserWithTokenNotification extends Notification implements Shoul
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting('Witaj, ' . $this->user->name . '!')
-            ->subject('Dziękujemy za rejestrację w serwisie')
-            ->line('Dziękujemy za rejestrację w serwisie. Kliknij w poniższy link, aby zweryfikować swój adres e-mail.')
-            ->action('Zweryfikuj', route('verifyToken', ['token' => $this->registerToken->token]));
+            ->greeting(
+                __('email.SendEmailToUserWithTokenNotification.greeting', ['name' => $this->user->name])
+            )
+
+            ->subject(__('email.SendEmailToUserWithTokenNotification.subject'))
+
+            ->line(__('email.SendEmailToUserWithTokenNotification.line'))
+
+            ->action(
+                __('email.SendEmailToUserWithTokenNotification.buttonAction'),
+                route('verifyToken', ['token' => $this->registerToken->token])
+            );
     }
 
     /**
