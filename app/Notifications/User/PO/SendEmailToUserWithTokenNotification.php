@@ -36,6 +36,7 @@ class SendEmailToUserWithTokenNotification extends Notification implements Shoul
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->greeting(
                 __('email.SendEmailToUserWithTokenNotification.greeting', ['name' => $this->user->name])
             )
