@@ -2,7 +2,7 @@
 
 namespace App\Services\User\PO;
 
-use App\Http\Dto\User\CreateUserDto;
+use App\Http\Dto\User\PO\CreateUserDto;
 use App\Models\User;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;

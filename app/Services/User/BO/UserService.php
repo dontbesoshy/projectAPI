@@ -2,7 +2,7 @@
 
 namespace App\Services\User\BO;
 
-use App\Http\Dto\User\CreateUserDto;
+use App\Http\Dto\User\BO\CreateUserDto;
 use App\Models\User;
 use App\Resources\User\UserCollection;
 use App\Services\BasicService;

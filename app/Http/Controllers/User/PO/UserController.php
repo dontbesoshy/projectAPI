@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User\PO;
 
 use App\Http\Controllers\Controller;
-use App\Http\Dto\User\CreateUserDto;
+use App\Http\Dto\User\PO\CreateUserDto;
 use App\Services\User\PO\UserService;
 use Illuminate\Http\JsonResponse;
 

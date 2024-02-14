@@ -21,15 +21,3 @@ Route::post('authenticate', [\App\Http\Controllers\Auth\AuthController::class, '
 */
 
 Route::apiResource('users', \App\Http\Controllers\User\PO\UserController::class)->only('store');
-
-/*
-|--------------------------------------------------------------------------
-| Application
-|--------------------------------------------------------------------------
-*/
-
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::delete('logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
-});
-
-

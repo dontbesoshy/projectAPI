@@ -7,42 +7,8 @@
 	},
 	"item": [
 		{
-			"name": "User",
+			"name": "Auth",
 			"item": [
-				{
-					"name": "BO",
-					"item": [
-						{
-							"name": "Show users",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{LOGIN_API_TOKEN}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{localhost}}/api/bo/users",
-									"host": [
-										"{{localhost}}"
-									],
-									"path": [
-										"api",
-										"bo",
-										"users"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "Register",
 					"request": {
@@ -50,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"tes123t@test.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\"\r\n}",
+							"raw": "{\r\n    \"email\": \"tes22123t@test.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -127,12 +93,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/api/logout",
+							"raw": "{{localhost}}/api/ad/logout",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
+								"ad",
 								"logout"
 							]
 						}
@@ -169,6 +136,81 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "BO",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Show users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/users",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tes12322233t@test.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/users",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": []
+		},
+		{
+			"name": "Portal",
+			"item": []
 		}
 	]
 }
