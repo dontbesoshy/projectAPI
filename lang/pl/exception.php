@@ -7,4 +7,5 @@ return [
     'usernameOrPasswordNotValid' => 'Nieprawidłowy login lub hasło',
     'registerTokenNotValid' => 'Nieprawidłowy token rejestracyjny',
     'userNotVerified' => 'Użytkownik niezweryfikowany',
+    'notFoundHttp' => 'Nie znaleziono strony',
 ];

@@ -3,10 +3,12 @@
 namespace App\Exceptions;
 
 use App\Exceptions\General\AuthenticationException as MyAuthenticationException;
+use App\Exceptions\General\NotFoundHttpException as MyNotFoundHttpException;
 use App\Traits\CanThrowTrait;
 use App\Traits\JsonResponseTrait;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -22,6 +24,7 @@ class Handler extends ExceptionHandler
      */
     private array $myExceptionsMap = [
         AuthenticationException::class => MyAuthenticationException::class,
+        NotFoundHttpException::class => MyNotFoundHttpException::class,
     ];
 
     /**

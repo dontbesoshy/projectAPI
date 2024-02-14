@@ -7,4 +7,5 @@ return [
     'usernameOrPasswordNotValid' => 'Incorrect login or password',
     'registerTokenNotValid' => 'Incorrect registration token',
     'userNotVerified' => 'User not verified',
+    'notFoundHttp' => 'Page not found',
 ];

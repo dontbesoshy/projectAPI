@@ -9,6 +9,7 @@ class ErrorCodes
     */
     public const AUTHENTICATION = 'gen-0001';
     public const VALIDATION_FAILED = 'gen-0002';
+    public const NOT_FOUND_HTTP = 'gen-0003';
 
     /*
     * USER ERROR CODES
