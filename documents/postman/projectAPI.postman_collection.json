@@ -10,13 +10,47 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "BO",
+					"item": [
+						{
+							"name": "Show users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/users",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\"\r\n}",
+							"raw": "{\r\n    \"email\": \"tes123t@test.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,13 +58,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/user",
+							"raw": "{{localhost}}/api/users",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"user"
+								"users"
 							]
 						}
 					},
