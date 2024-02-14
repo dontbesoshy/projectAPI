@@ -24,13 +24,13 @@ class AuthService extends BasicService
         $user = User::where('email', $request->email)->first();
 
         $this->throwIf(
-            $user->email_verified_at === null,
-            UserNotVerifiedException::class
+            !$user ||!Hash::check($request->password, $user->password),
+            UsernameOrPasswordNotValidException::class
         );
 
         $this->throwIf(
-            !$user ||!Hash::check($request->password, $user->password),
-            UsernameOrPasswordNotValidException::class
+            $user->email_verified_at === null,
+            UserNotVerifiedException::class
         );
 
         $token = $user->createToken('my-app-token')->plainTextToken;
