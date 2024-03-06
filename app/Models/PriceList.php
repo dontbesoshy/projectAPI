@@ -16,6 +16,6 @@ class PriceList extends Model
     ];
 
     protected $casts = [
-        'data' => AsArrayObject::class,
+        'data' => 'json',
     ];
 }

@@ -329,7 +329,37 @@
 		},
 		{
 			"name": "Admin",
-			"item": []
+			"item": [
+				{
+					"name": "Show price list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{LOGIN_API_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/ad/priceList",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"ad",
+								"priceList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Portal",

@@ -14,5 +14,12 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::delete('logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Price list
+        |--------------------------------------------------------------------------
+        */
+        Route::get('priceList', [\App\Http\Controllers\PriceList\AD\PriceListController::class, 'show']);
     }
 );
