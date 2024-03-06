@@ -3,8 +3,10 @@
 namespace App\Models\User;
 
 use App\Enums\User\UserTypeEnum;
+use App\Models\PriceList;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -58,5 +60,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function registerToken(): HasOne
     {
         return $this->hasOne(RegisterToken::class);
+    }
+
+    /**
+     * User belongs to many price lists.
+     *
+     * @return BelongsToMany
+     */
+    public function priceLists(): BelongsToMany
+    {
+        return $this->belongsToMany(PriceList::class);
     }
 }

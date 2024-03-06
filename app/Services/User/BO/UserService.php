@@ -18,7 +18,7 @@ class UserService extends BasicService
      */
     public function index(): UserCollection
     {
-        $queryBuilder = User::query()->where('type', '=', UserTypeEnum::CLIENT);
+        $queryBuilder = User::query()->with('priceLists')->where('type', '=', UserTypeEnum::CLIENT);
 
         return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
     }

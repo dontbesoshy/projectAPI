@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8e9059c0e57a50c86fd7843c72c281c",
+    "content-hash": "0ed7e5945a3878f9c6c14f38a8635e09",
     "packages": [
         {
             "name": "amphp/amp",
@@ -863,6 +863,60 @@
                 }
             ],
             "time": "2023-01-09T22:29:20+00:00"
+        },
+        {
+            "name": "aspera/xlsx-reader",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AsperaGmbH/xlsx-reader.git",
+                "reference": "70c86c6f139fd6779e0de7ea41e0603910335faf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AsperaGmbH/xlsx-reader/zipball/70c86c6f139fd6779e0de7ea41e0603910335faf",
+                "reference": "70c86c6f139fd6779e0de7ea41e0603910335faf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-libxml": "*",
+                "ext-xmlreader": "*",
+                "ext-zip": "*",
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aspera\\Spreadsheet\\XLSX\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "USU GmbH",
+                    "email": "info@usu.com",
+                    "homepage": "https://www.usu.com/"
+                }
+            ],
+            "description": "Spreadsheet reader library for XLSX files",
+            "homepage": "https://github.com/AsperaGmbH/xlsx-reader/",
+            "keywords": [
+                "excel",
+                "spreadsheet",
+                "xlsx"
+            ],
+            "support": {
+                "email": "info@usu.com",
+                "issues": "https://github.com/AsperaGmbH/xlsx-reader/issues",
+                "source": "https://github.com/AsperaGmbH/xlsx-reader/tree/v1.1.0"
+            },
+            "time": "2023-05-15T10:00:25+00:00"
         },
         {
             "name": "brick/math",
