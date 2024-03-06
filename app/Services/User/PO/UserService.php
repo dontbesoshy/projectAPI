@@ -2,8 +2,9 @@
 
 namespace App\Services\User\PO;
 
+use App\Enums\User\UserTypeEnum;
 use App\Http\Dto\User\PO\CreateUserDto;
-use App\Models\User;
+use App\Models\User\User;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +28,7 @@ class UserService extends BasicService
                 'email' => $dto->email,
                 'password' => $dto->password,
                 'name' => $dto->name,
+                'type' => UserTypeEnum::CLIENT,
             ]);
 
             $token = $user

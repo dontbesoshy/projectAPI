@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\RegisterToken;
-use App\Models\User;
+use App\Models\User\RegisterToken;
+use App\Models\User\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\User;
 
+use App\Enums\User\UserTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -16,9 +17,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'John Doe',
-            'email' => 'test@test.com',
+            'email' => 'admin@admin.com',
             'email_verified_at' => now(),
+            'type' => UserTypeEnum::ADMIN,
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

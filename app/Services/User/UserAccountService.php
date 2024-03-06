@@ -3,8 +3,8 @@
 namespace App\Services\User;
 
 use App\Exceptions\User\RegisterToken\RegisterTokenNotValidException;
-use App\Models\RegisterToken;
-use App\Models\User;
+use App\Models\User\RegisterToken;
+use App\Models\User\User;
 use App\Notifications\User\PO\SendEmailToUserWithTokenNotification;
 use App\Services\BasicService;
 use Illuminate\Support\Str;

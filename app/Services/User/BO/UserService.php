@@ -2,9 +2,10 @@
 
 namespace App\Services\User\BO;
 
+use App\Enums\User\UserTypeEnum;
 use App\Http\Dto\User\BO\CreateUserDto;
-use App\Models\User;
-use App\Resources\User\UserCollection;
+use App\Models\User\User;
+use App\Resources\User\BO\UserCollection;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,7 @@ class UserService extends BasicService
      */
     public function index(): UserCollection
     {
-        $queryBuilder = User::latest();
+        $queryBuilder = User::query()->where('type', '=', UserTypeEnum::CLIENT);
 
         return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
     }
@@ -39,7 +40,9 @@ class UserService extends BasicService
             $user = User::query()->create([
                 'email' => $dto->email,
                 'password' => $dto->password,
-                'name' => $dto->name,
+                'company_name' => $dto->companyName,
+                'company_address' => $dto->companyAddress,
+                'type' => UserTypeEnum::CLIENT
             ]);
 
             $token = $user

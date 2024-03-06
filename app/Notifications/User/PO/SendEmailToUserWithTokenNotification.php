@@ -2,8 +2,8 @@
 
 namespace App\Notifications\User\PO;
 
-use App\Models\RegisterToken;
-use App\Models\User;
+use App\Models\User\RegisterToken;
+use App\Models\User\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;

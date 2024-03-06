@@ -12,5 +12,7 @@ class CreateUserDto extends BasicDto
 
     public string $password;
 
-    public string $name;
+    public string $companyName;
+
+    public string $companyAddress;
 }

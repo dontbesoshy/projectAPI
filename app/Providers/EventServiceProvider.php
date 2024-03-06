@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Events\UserCreated;
 use App\Listeners\UserCreatedListener;
-use App\Models\User;
+use App\Models\User\User;
 use App\Observers\UserObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
