@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }
