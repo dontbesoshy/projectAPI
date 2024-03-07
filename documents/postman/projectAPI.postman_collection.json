@@ -227,6 +227,35 @@
 					"name": "PriceList",
 					"item": [
 						{
+							"name": "Show price lists",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/priceLists",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"priceLists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Upload price list",
 							"event": [
 								{
@@ -307,7 +336,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "{{localhost}}/api/bo/priceLists/2/attachUser/3",
+									"raw": "{{localhost}}/api/bo/priceLists/1/attachUser/3",
 									"host": [
 										"{{localhost}}"
 									],
@@ -315,7 +344,7 @@
 										"api",
 										"bo",
 										"priceLists",
-										"2",
+										"1",
 										"attachUser",
 										"3"
 									]

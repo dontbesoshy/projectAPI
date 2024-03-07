@@ -2,12 +2,10 @@
 
 namespace App\Services\PriceList\BO;
 
-use App\Enums\User\UserTypeEnum;
 use App\Http\Dto\File\UploadedFileDto;
-use App\Http\Dto\User\BO\CreateUserDto;
 use App\Models\PriceList;
 use App\Models\User\User;
-use App\Resources\User\BO\UserCollection;
+use App\Resources\PriceList\BO\PriceListCollection;
 use App\Services\BasicService;
 use Aspera\Spreadsheet\XLSX\Reader;
 use Illuminate\Support\Facades\DB;
@@ -16,15 +14,15 @@ use Illuminate\Support\Facades\Storage;
 class PriceListService extends BasicService
 {
     /**
-     * Return all users.
+     * Return all price lists.
      *
-     * @return UserCollection
+     * @return PriceListCollection
      */
-    public function index(): UserCollection
+    public function index(): PriceListCollection
     {
-        $queryBuilder = User::query()->where('type', '=', UserTypeEnum::CLIENT);
+        $queryBuilder = PriceList::query()->get();
 
-        return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
+        return new PriceListCollection($queryBuilder);
     }
 
     /**
@@ -39,17 +37,16 @@ class PriceListService extends BasicService
         DB::beginTransaction();
 
         try {
+            $reader = new Reader();
             $fileName = $dto->file->getClientOriginalName();
 
             Storage::disk('local')->put($fileName, file_get_contents($dto->file));
 
-            $reader = new Reader();
             $reader->open(Storage::disk('local')->path($fileName));
 
-            PriceList::query()->create([
-                'name' => $fileName,
-                'data' => collect($reader)->toJson()
-            ]);
+            $priceList = PriceList::query()->updateOrCreate(['name' => $fileName]);
+
+            $priceList->update(['data' => collect($reader)]);
 
             DB::commit();
         } catch (\Throwable $e) {

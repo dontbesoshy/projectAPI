@@ -4,7 +4,7 @@ namespace App\Resources\PriceList\AD;
 
 use App\Resources\BasicResource;
 
-class PriceListResource extends BasicResource
+class PriceListItemResource extends BasicResource
 {
     /**
      * @param $request
@@ -14,9 +14,10 @@ class PriceListResource extends BasicResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'data' => new PriceListItemCollection(collect($this->data)),
+            'ean' => $this[0],
+            'name' => $this[1],
+            'kod' => $this[2],
+            'price' => $this[3],
         ];
     }
 }

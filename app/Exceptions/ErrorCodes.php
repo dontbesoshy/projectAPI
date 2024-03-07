@@ -10,6 +10,7 @@ class ErrorCodes
     public const AUTHENTICATION = 'gen-0001';
     public const VALIDATION_FAILED = 'gen-0002';
     public const NOT_FOUND_HTTP = 'gen-0003';
+    public const MODEL_NOT_FOUND = 'gen-0004';
 
     /*
     * USER ERROR CODES
@@ -17,6 +18,8 @@ class ErrorCodes
     public const USER_NOT_FOUND = 'usr-0001';
     public const REGISTER_TOKEN_NOT_VALID = 'usr-0002';
     public const USER_NOT_VERIFIED = 'usr-0003';
+
+    public const USER_DOESNT_HAVE_PRICE_LIST = 'usr-0004';
 
     /*
      * AUTH ERROR CODES

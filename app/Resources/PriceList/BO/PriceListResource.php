@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resources\PriceList\AD;
+namespace App\Resources\PriceList\BO;
 
 use App\Resources\BasicResource;
 
@@ -16,7 +16,6 @@ class PriceListResource extends BasicResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'data' => new PriceListItemCollection(collect($this->data)),
         ];
     }
 }
