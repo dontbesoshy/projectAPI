@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PriceList extends Model
 {
@@ -11,10 +12,15 @@ class PriceList extends Model
 
     protected $fillable = [
         'name',
-        'data',
     ];
 
-    protected $casts = [
-        'data' => 'array',
-    ];
+    /**
+     * Price list has many parts.
+     *
+     * @return HasMany
+     */
+    public function parts(): HasMany
+    {
+        return $this->hasMany(Part::class);
+    }
 }

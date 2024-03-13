@@ -16,7 +16,7 @@ class PriceListResource extends BasicResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'data' => new PriceListItemCollection(collect($this->data)),
+            'parts' => new PriceListItemCollection($this->parts),
         ];
     }
 }

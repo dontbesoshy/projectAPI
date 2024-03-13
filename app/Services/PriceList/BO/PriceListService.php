@@ -3,8 +3,11 @@
 namespace App\Services\PriceList\BO;
 
 use App\Http\Dto\File\UploadedFileDto;
+use App\Http\Dto\PriceList\UpdatePartDto;
+use App\Models\Part;
 use App\Models\PriceList;
 use App\Models\User\User;
+use App\Resources\PriceList\AD\PriceListResource;
 use App\Resources\PriceList\BO\PriceListCollection;
 use App\Services\BasicService;
 use Aspera\Spreadsheet\XLSX\Reader;
@@ -26,6 +29,20 @@ class PriceListService extends BasicService
     }
 
     /**
+     * Show price list.
+     *
+     * @param PriceList $priceList
+     *
+     * @return PriceListResource
+     */
+    public function show(PriceList $priceList): PriceListResource
+    {
+        $priceList->load('parts');
+
+        return new PriceListResource($priceList);
+    }
+
+    /**
      * Store a new price list.
      *
      * @param UploadedFileDto $dto
@@ -44,14 +61,50 @@ class PriceListService extends BasicService
 
             $reader->open(Storage::disk('local')->path($fileName));
 
-            $priceList = PriceList::query()->updateOrCreate(['name' => $fileName]);
+            $priceList = PriceList::query()->with('parts')->updateOrCreate(['name' => $fileName]);
 
-            $priceList->update(['data' => collect($reader)]);
+            $parts = collect($reader)
+                ->mapWithKeys(fn ($row, $key) => [$key => [
+                    'price_list_id' => $priceList->id,
+                    'ean' => $row[0],
+                    'name' => $row[1],
+                    'code' => $row[2],
+                    'price' => $row[3],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]])
+                ->toArray();
+
+            Part::query()->where('price_list_id', $priceList->id)->delete();
+            Part::insert($parts);
 
             DB::commit();
         } catch (\Throwable $e) {
             $this->rollBackThrow($e);
         }
+    }
+
+    /**
+     * Upload price list.
+     *
+     * @param PriceList $priceList
+     * @param UpdatePartDto $dto
+     *
+     * @return void
+     */
+    public function update(PriceList $priceList, UpdatePartDto $dto): void
+    {
+        Part::query()
+            ->whereIn('id', collect($dto->parts)->pluck('id'))
+            ->each(function (Part $part) use ($dto) {
+                $partFromDto = $dto->parts->first(fn ($partDto) => $partDto->id === $part->id);
+                $part->update([
+                    'ean' => $partFromDto->ean,
+                    'name' => $partFromDto->name,
+                    'code' => $partFromDto->code,
+                    'price' => $partFromDto->price,
+                ]);
+            });
     }
 
     /**

@@ -14,10 +14,11 @@ class PriceListItemResource extends BasicResource
     public function toArray($request): array
     {
         return [
-            'ean' => $this[0],
-            'name' => $this[1],
-            'kod' => $this[2],
-            'price' => $this[3],
+            'id' => $this->id,
+            'ean' => $this->ean,
+            'name' => $this->name,
+            'code' => $this->code,
+            'price' => $this->price,
         ];
     }
 }

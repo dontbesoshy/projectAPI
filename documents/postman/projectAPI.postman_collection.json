@@ -256,6 +256,36 @@
 							"response": []
 						},
 						{
+							"name": "Show price list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/priceLists/1",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"priceLists",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Upload price list",
 							"event": [
 								{
@@ -264,7 +294,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -347,6 +378,57 @@
 										"1",
 										"attachUser",
 										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update price list parts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"parts\": [\r\n        {\r\n            \"id\": 7279,\r\n            \"ean\": \"123\",\r\n            \"name\": \"sialala\",\r\n            \"code\": \"123\",\r\n            \"price\": \"12.20\"\r\n        },\r\n        {\r\n            \"id\": 7280,\r\n            \"ean\": \"321\",\r\n            \"name\": \"asdasdsadasdasdasdasdasdasd\",\r\n            \"code\": \"123\",\r\n            \"price\": \"11000\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/priceLists/1",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"priceLists",
+										"1"
 									]
 								}
 							},

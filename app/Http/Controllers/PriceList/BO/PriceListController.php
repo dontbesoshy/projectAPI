@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PriceList\BO;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\File\UploadedFileDto;
+use App\Http\Dto\PriceList\UpdatePartDto;
 use App\Models\PriceList;
 use App\Models\User\User;
 use App\Services\PriceList\BO\PriceListService;
@@ -31,6 +32,17 @@ class PriceListController extends Controller
     }
 
     /**
+     * Show price list.
+     *
+     * @param PriceList $priceList
+     * @return JsonResponse
+     */
+    public function show(PriceList $priceList): JsonResponse
+    {
+        return $this->OK($this->priceListService->show($priceList));
+    }
+
+    /**
      * Store a new price list.
      *
      * @param UploadedFileDto $dto
@@ -40,6 +52,21 @@ class PriceListController extends Controller
     public function store(UploadedFileDto $dto): JsonResponse
     {
         $this->priceListService->create($dto);
+
+        return $this->OK();
+    }
+
+    /**
+     * Update price list.
+     *
+     * @param PriceList $priceList
+     * @param UpdatePartDto $request
+     *
+     * @return JsonResponse
+     */
+    public function update(PriceList $priceList, UpdatePartDto $request)
+    {
+        $this->priceListService->update($priceList, $request);
 
         return $this->OK();
     }

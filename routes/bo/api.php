@@ -38,7 +38,7 @@ Route::group(
         | Price list
         |--------------------------------------------------------------------------
         */
-        Route::apiResource('priceLists', PriceListController::class)->only(['index', 'store', 'destroy']);
+        Route::apiResource('priceLists', PriceListController::class);
         Route::post('priceLists/{priceList}/attachUser/{user}', [PriceListController::class, 'attachUser']);
     }
 );

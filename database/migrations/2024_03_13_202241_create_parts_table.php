@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('price_lists', function (Blueprint $table) {
+        Schema::create('parts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('price_list_id')->constrained();
+            $table->string('ean')->nullable();
+            $table->string('name')->nullable();
+            $table->string('code')->nullable();
+            $table->decimal('price', 12, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('price_lists');
+        Schema::dropIfExists('parts');
     }
 };
