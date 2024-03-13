@@ -116,6 +116,18 @@ class PriceListService extends BasicService
     }
 
     /**
+     * Delete price list.
+     *
+     * @param PriceList $priceList
+     *
+     * @return void
+     */
+    public function delete(PriceList $priceList): void
+    {
+        $priceList->parts()->update(['price' => 0]);
+    }
+
+    /**
      * Attach user to price list.
      *
      * @param User $user

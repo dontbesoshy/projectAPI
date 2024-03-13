@@ -72,6 +72,20 @@ class PriceListController extends Controller
     }
 
     /**
+     * Delete price list.
+     *
+     * @param PriceList $priceList
+     *
+     * @return JsonResponse
+     */
+    public function destroy(PriceList $priceList): JsonResponse
+    {
+        $this->priceListService->delete($priceList);
+
+        return $this->OK();
+    }
+
+    /**
      * Attach user to price list.
      *
      * @param User $user
