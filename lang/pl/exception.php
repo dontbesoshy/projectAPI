@@ -10,4 +10,5 @@ return [
     'userNotVerified' => 'Użytkownik niezweryfikowany',
     'notFoundHttp' => 'Nie znaleziono strony',
     'modelNotFound' => 'Żądany model nie został znaleziony',
+    'mainPhotoNotFound' => 'Nie znaleziono zdjęcia głównego',
 ];

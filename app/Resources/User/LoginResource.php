@@ -18,6 +18,7 @@ class LoginResource extends BasicResource
         return [
             'user' => [
                 'id' => $this['user']->id,
+                'isAdmin' => $this['user']->isAdmin(),
             ],
             'token' => $this['token'],
         ];

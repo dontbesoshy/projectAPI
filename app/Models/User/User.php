@@ -71,4 +71,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(PriceList::class);
     }
+
+    /**
+     * Check if user is admin.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->type === UserTypeEnum::ADMIN;
+    }
 }

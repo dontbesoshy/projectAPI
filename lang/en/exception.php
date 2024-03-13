@@ -10,4 +10,5 @@ return [
     'userNotVerified' => 'User not verified',
     'notFoundHttp' => 'Page not found',
     'modelNotFound' => 'The requested model was not found',
+    'mainPhotoNotFound' => 'Main photo not found',
 ];

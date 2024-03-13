@@ -25,4 +25,9 @@ class ErrorCodes
      * AUTH ERROR CODES
     */
     public const USERNAME_OR_PASSWORD_NOT_VALID = 'auth-0001';
+
+    /*
+    * MAIN PHOTO ERROR CODES
+    */
+    public const MAIN_PHOTO_NOT_FOUND = 'mainPhoto-0001';
 }
