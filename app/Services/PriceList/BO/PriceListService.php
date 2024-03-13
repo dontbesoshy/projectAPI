@@ -3,7 +3,7 @@
 namespace App\Services\PriceList\BO;
 
 use App\Http\Dto\File\UploadedFileDto;
-use App\Http\Dto\PriceList\UpdatePartDto;
+use App\Http\Dto\PriceList\UpdatePriceListDto;
 use App\Models\Part;
 use App\Models\PriceList;
 use App\Models\User\User;
@@ -88,23 +88,31 @@ class PriceListService extends BasicService
      * Upload price list.
      *
      * @param PriceList $priceList
-     * @param UpdatePartDto $dto
+     * @param UpdatePriceListDto $dto
      *
      * @return void
      */
-    public function update(PriceList $priceList, UpdatePartDto $dto): void
+    public function update(PriceList $priceList, UpdatePriceListDto $dto): void
     {
-        Part::query()
-            ->whereIn('id', collect($dto->parts)->pluck('id'))
-            ->each(function (Part $part) use ($dto) {
-                $partFromDto = $dto->parts->first(fn ($partDto) => $partDto->id === $part->id);
-                $part->update([
-                    'ean' => $partFromDto->ean,
-                    'name' => $partFromDto->name,
-                    'code' => $partFromDto->code,
-                    'price' => $partFromDto->price,
-                ]);
-            });
+        DB::beginTransaction();
+
+        try {
+            Part::query()
+                ->whereIn('id', collect($dto->parts)->pluck('id'))
+                ->each(function (Part $part) use ($dto) {
+                    $partFromDto = $dto->parts->first(fn ($partDto) => $partDto->id === $part->id);
+                    $part->update([
+                        'ean' => $partFromDto->ean,
+                        'name' => $partFromDto->name,
+                        'code' => $partFromDto->code,
+                        'price' => $partFromDto->price,
+                    ]);
+                });
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            $this->rollBackThrow($e);
+        }
     }
 
     /**

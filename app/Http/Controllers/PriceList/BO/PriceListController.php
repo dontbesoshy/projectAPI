@@ -4,7 +4,7 @@ namespace App\Http\Controllers\PriceList\BO;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\File\UploadedFileDto;
-use App\Http\Dto\PriceList\UpdatePartDto;
+use App\Http\Dto\PriceList\UpdatePriceListDto;
 use App\Models\PriceList;
 use App\Models\User\User;
 use App\Services\PriceList\BO\PriceListService;
@@ -60,11 +60,11 @@ class PriceListController extends Controller
      * Update price list.
      *
      * @param PriceList $priceList
-     * @param UpdatePartDto $request
+     * @param UpdatePriceListDto $request
      *
      * @return JsonResponse
      */
-    public function update(PriceList $priceList, UpdatePartDto $request)
+    public function update(PriceList $priceList, UpdatePriceListDto $request)
     {
         $this->priceListService->update($priceList, $request);
 
