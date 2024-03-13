@@ -488,6 +488,91 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Main photo",
+					"item": [
+						{
+							"name": "Show main photo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/mainPhotos",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"mainPhotos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store new main photo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/kajda/Downloads/CN na przeźroczystym.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/mainPhotos",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"mainPhotos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
