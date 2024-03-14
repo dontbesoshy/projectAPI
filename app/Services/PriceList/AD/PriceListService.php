@@ -18,7 +18,7 @@ class PriceListService extends BasicService
      */
     public function show(User $user): ?PriceListResource
     {
-        $priceList = $user->priceLists()->first();
+        $priceList = $user->priceLists()->with('parts.image')->first();
 
         $this->throwIf(
             !$priceList,

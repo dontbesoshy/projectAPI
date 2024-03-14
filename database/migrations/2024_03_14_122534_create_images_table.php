@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parts', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('price_list_id')->constrained();
-            $table->string('ean')->nullable();
-            $table->string('name')->nullable();
-            $table->string('code')->index()->nullable();
-            $table->decimal('price', 12, 2)->nullable();
+            $table->string('part_code');
+            $table->string('url');
+            $table->string('name');
             $table->timestamps();
+
+            $table->foreign('part_code')->references('code')->on('parts');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parts');
+        Schema::dropIfExists('images');
     }
 };

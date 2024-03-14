@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resources\PriceList\AD;
+namespace App\Resources\PriceList\BO;
 
 use App\Resources\BasicResource;
 
@@ -19,7 +19,6 @@ class PriceListItemResource extends BasicResource
             'name' => $this->name,
             'code' => $this->code,
             'price' => $this->price,
-            'image' => $this->image,
         ];
     }
 }

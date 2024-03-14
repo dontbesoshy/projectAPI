@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Exceptions\Auth\UsernameOrPasswordNotValidException;
 use App\Exceptions\User\UserNotVerifiedException;
 use App\Http\Dto\User\LoginUserDto;
+use App\Models\Part;
 use App\Models\User\User;
 use App\Resources\User\LoginResource;
 use App\Services\BasicService;

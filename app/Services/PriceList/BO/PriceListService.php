@@ -37,7 +37,7 @@ class PriceListService extends BasicService
      */
     public function show(PriceList $priceList): PriceListResource
     {
-        $priceList->load('parts');
+        $priceList->load('parts.image');
 
         return new PriceListResource($priceList);
     }

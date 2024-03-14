@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Email\BO\EmailController;
+use App\Http\Controllers\Image\BO\ImageController;
 use App\Http\Controllers\MainPhoto\BO\MainPhotoController;
 use App\Http\Controllers\PriceList\BO\PriceListController;
 use App\Http\Controllers\User\BO\UserController;
@@ -32,6 +33,13 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::apiResource('mainPhotos', MainPhotoController::class)->only(['index', 'store']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Images
+        |--------------------------------------------------------------------------
+        */
+        Route::apiResource('images', ImageController::class)->only(['index', 'store']);
 
         /*
         |--------------------------------------------------------------------------

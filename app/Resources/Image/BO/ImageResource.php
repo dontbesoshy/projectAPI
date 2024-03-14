@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Resources\PriceList\AD;
+namespace App\Resources\Image\BO;
 
 use App\Resources\BasicResource;
+use App\Resources\PriceList\BO\PriceListItemResource;
 
-class PriceListItemResource extends BasicResource
+class ImageResource extends BasicResource
 {
     /**
      * @param $request
@@ -15,11 +16,9 @@ class PriceListItemResource extends BasicResource
     {
         return [
             'id' => $this->id,
-            'ean' => $this->ean,
             'name' => $this->name,
-            'code' => $this->code,
-            'price' => $this->price,
-            'image' => $this->image,
+            'url' => $this->url,
+            'part' => new PriceListItemResource($this->part),
         ];
     }
 }
