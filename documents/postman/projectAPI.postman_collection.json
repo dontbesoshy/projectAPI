@@ -736,7 +736,41 @@
 		},
 		{
 			"name": "Portal",
-			"item": []
+			"item": [
+				{
+					"name": "Main photo",
+					"item": [
+						{
+							"name": "Show main photo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/mainPhotos",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"mainPhotos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	]
 }
