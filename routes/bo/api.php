@@ -20,6 +20,8 @@ Route::group(
         */
         Route::apiResource('users', UserController::class)->only(['index', 'store']);
 
+        Route::post('users/{user}/setNewPassword', [UserController::class, 'setNewPassword']);
+
         /*
         |--------------------------------------------------------------------------
         | Emails

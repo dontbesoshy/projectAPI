@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User\BO;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\User\BO\CreateUserDto;
+use App\Http\Dto\User\BO\NewPasswordDto;
+use App\Models\User\User;
 use App\Services\User\BO\UserService;
 use Illuminate\Http\JsonResponse;
 
@@ -38,5 +40,18 @@ class UserController extends Controller
     public function store(CreateUserDto $dto): JsonResponse
     {
         return $this->OK($this->userService->create($dto));
+    }
+
+    /**
+     * Set new password.
+     *
+     * @param User $user
+     * @param NewPasswordDto $request
+     *
+     * @return JsonResponse
+     */
+    public function setNewPassword(User $user, NewPasswordDto $request): JsonResponse
+    {
+        return $this->OK($this->userService->setNewPassword($user, $request));
     }
 }
