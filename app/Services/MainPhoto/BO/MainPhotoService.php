@@ -43,16 +43,14 @@ class MainPhotoService extends BasicService
         try {
             $fileName = $dto->file->getClientOriginalName();
 
-            Storage::disk('local')->put('public/'.$fileName, file_get_contents($dto->file));
+            Storage::disk('public')->put($fileName, file_get_contents($dto->file));
 
-            $url = Storage::disk('local')->path('public/'.$fileName);
+            $url = Storage::disk('public')->path($fileName);
 
             MainPhoto::query()->create([
-                'url' => $fileName,
+                'url' => $url,
                 'name' => $fileName,
             ]);
-
-            Storage::setVisibility($url, 'public');
 
             DB::commit();
         } catch (\Throwable $e) {
