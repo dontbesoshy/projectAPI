@@ -48,7 +48,7 @@ class MainPhotoService extends BasicService
             $url = Storage::disk('local')->path('public/'.$fileName);
 
             MainPhoto::query()->create([
-                'url' => 'storage/'.$fileName,
+                'url' => $fileName,
                 'name' => $fileName,
             ]);
 
