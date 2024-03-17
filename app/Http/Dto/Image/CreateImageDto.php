@@ -11,5 +11,5 @@ class CreateImageDto extends BasicDto
     #[File]
     public UploadedFile $file;
 
-    public int $partId;
+    public string $code;
 }

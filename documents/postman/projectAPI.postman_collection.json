@@ -815,11 +815,11 @@
 										{
 											"key": "file",
 											"type": "file",
-											"src": "/C:/Users/kajda/Desktop/data/katalog/0001.png"
+											"src": "/C:/Users/kajda/Desktop/data/katalog/0000.png"
 										},
 										{
-											"key": "partId",
-											"value": "123",
+											"key": "code",
+											"value": "SFMCB100-XJ",
 											"type": "text"
 										}
 									]

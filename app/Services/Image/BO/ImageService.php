@@ -35,16 +35,16 @@ class ImageService extends BasicService
         \DB::beginTransaction();
 
         try {
-            $part = Part::find($dto->partId);
+            $part = Part::where('code', $dto->code)->first();
 
             $part->image()->delete();
 
             $fileName = $dto->file->getClientOriginalName();
 
-            Storage::disk('local')->put($fileName, file_get_contents($dto->file));
+            Storage::disk('public')->put($fileName, file_get_contents($dto->file));
 
             $part->image()->create([
-                'url' => Storage::disk('local')->path($fileName),
+                'url' => $fileName,
                 'name' => $fileName,
             ]);
 
