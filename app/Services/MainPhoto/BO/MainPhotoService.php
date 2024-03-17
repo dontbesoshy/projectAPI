@@ -45,10 +45,10 @@ class MainPhotoService extends BasicService
 
             Storage::disk('public')->put($fileName, file_get_contents($dto->file));
 
-            $url = Storage::disk('public')->path($fileName);
+            //$url = Storage::disk('public')->path($fileName);
 
             MainPhoto::query()->create([
-                'url' => $url,
+                'url' => $fileName,
                 'name' => $fileName,
             ]);
 
