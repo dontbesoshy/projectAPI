@@ -3,11 +3,16 @@
 namespace App\Services\User;
 
 use App\Exceptions\User\RegisterToken\RegisterTokenNotValidException;
+use App\Exceptions\User\UserNotFoundException;
+use App\Http\Dto\User\PO\EmailDto;
 use App\Models\User\RegisterToken;
 use App\Models\User\User;
+use App\Notifications\User\PO\SendEmailToUserWithNewPasswordNotification;
 use App\Notifications\User\PO\SendEmailToUserWithTokenNotification;
 use App\Services\BasicService;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserAccountService extends BasicService
 {
@@ -55,5 +60,30 @@ class UserAccountService extends BasicService
         ]);
 
         $registerToken->delete();
+   }
+
+    /**
+     * Forgot password.
+     *
+     * @param EmailDto $dto
+     *
+     * @return void
+     */
+   public function forgotPassword(EmailDto $dto): void
+   {
+       $user = User::where('email', $dto->email)->first();
+
+       $this->throwIf(
+           !$user,
+           UserNotFoundException::class
+       );
+
+       $newPassword = Str::random(8);
+
+       $user->update([
+           'password' => Hash::make($newPassword)
+       ]);
+
+       $user->notify(new SendEmailToUserWithNewPasswordNotification($user, $newPassword));
    }
 }

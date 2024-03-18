@@ -846,33 +846,38 @@
 			"name": "Admin",
 			"item": [
 				{
-					"name": "Show price list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{LOGIN_API_TOKEN}}",
-									"type": "string"
+					"name": "User",
+					"item": [
+						{
+							"name": "Show price list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/ad/priceList",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"ad",
+										"priceList"
+									]
 								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/ad/priceList",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"ad",
-								"priceList"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -905,6 +910,60 @@
 									"path": [
 										"api",
 										"mainPhotos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Forgot Password",
+					"item": [
+						{
+							"name": "Send new password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"client@client.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/forgotPassword",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"forgotPassword"
 									]
 								}
 							},

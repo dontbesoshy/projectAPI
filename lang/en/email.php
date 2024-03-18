@@ -11,4 +11,9 @@ return [
         'line' => 'Thank you for registering for the service. Click on the button below to verify your email address.',
         'buttonAction' => 'Verify',
     ],
+    'SendEmailToUserWithNewPasswordNotification' => [
+        'greeting' => 'Hello, :name!',
+        'subject' => config('app.name') . ': New password',
+        'line' => 'Your new login password: :newPassword',
+    ],
 ];

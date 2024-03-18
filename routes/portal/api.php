@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('verifyToken/{token}', [UserAccountController::class, 'verifyRegisterToken'])->name('verifyToken');
+Route::post('forgotPassword', [UserAccountController::class, 'forgotPassword'])->name('forgotPassword');
 
 /*
 |--------------------------------------------------------------------------

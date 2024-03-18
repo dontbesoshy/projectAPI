@@ -11,4 +11,9 @@ return [
         'line' => 'Dziękujemy za rejestrację w serwisie. Kliknij w poniższy przycisk, aby zweryfikować swój adres e-mail.',
         'buttonAction' => 'Zweryfikuj',
     ],
+    'SendEmailToUserWithNewPasswordNotification' => [
+        'greeting' => 'Witaj, :name!',
+        'subject' => config('app.name') . ': Nowe hasło',
+        'line' => 'Twoje nowe hasło do logowania: :newPassword',
+    ],
 ];
