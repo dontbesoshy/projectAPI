@@ -21,5 +21,6 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::get('priceList', [\App\Http\Controllers\PriceList\AD\PriceListController::class, 'show']);
+        Route::post('makeOrder', [\App\Http\Controllers\Order\AD\OrderController::class, 'store']);
     }
 );
