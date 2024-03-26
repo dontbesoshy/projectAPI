@@ -839,6 +839,91 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Catalog image",
+					"item": [
+						{
+							"name": "Show catalog images",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/catalogImages",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"catalogImages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store catalog image",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "///wsl.localhost/Ubuntu-20.04/home/tokey97/MP/API/documents/postman/files/correct_image.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/catalogImages",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"catalogImages"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

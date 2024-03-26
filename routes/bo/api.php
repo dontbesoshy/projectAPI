@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatalogImage\BO\CatalogImageController;
 use App\Http\Controllers\Email\BO\EmailController;
 use App\Http\Controllers\Image\BO\ImageController;
 use App\Http\Controllers\MainPhoto\BO\MainPhotoController;
@@ -42,6 +43,13 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::apiResource('images', ImageController::class)->only(['index', 'store']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Catalog image
+        |--------------------------------------------------------------------------
+        */
+        Route::apiResource('catalogImages', CatalogImageController::class)->only(['index', 'store']);
 
         /*
         |--------------------------------------------------------------------------
