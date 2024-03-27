@@ -31,6 +31,25 @@ class CatalogImageService extends BasicService
      */
     public function store(CreateCatalogImageDto $dto): void
     {
+//        $folder = 'C:\Users\kajda\Desktop\img\images\catalog';
+//
+//        $pliki = scandir($folder);
+//
+//        $pliki = array_filter($pliki, function($item) use ($folder) {
+//            return !is_dir($folder . '/' . $item);
+//        });
+//
+//        $pliki = collect($pliki)->map(function($item) {
+//            return explode('.', $item)[0];
+//        });
+//
+//        $pliki->each(function($image) use ($folder) {
+//            CatalogImage::create([
+//                'url' => $image . '.png',
+//                'name' => $image . '.png',
+//            ]);
+//        });
+//        dd('ok');
         \DB::beginTransaction();
 
         try {

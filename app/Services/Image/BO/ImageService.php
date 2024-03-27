@@ -32,10 +32,38 @@ class ImageService extends BasicService
      */
     public function store(CreateImageDto $dto): void
     {
+//        $folder = 'C:\Users\kajda\Desktop\img\images\accessories';
+//
+//        $pliki = scandir($folder);
+//
+//        $pliki = array_filter($pliki, function($item) use ($folder) {
+//            return !is_dir($folder . '/' . $item);
+//        });
+//
+//        $pliki = collect($pliki)->map(function($item) {
+//            return explode('.', $item)[0];
+//        });
+//
+//        $parts = Part::whereIn('code', $pliki)->get();
+//
+//        $parts->each(function($part) use ($folder) {
+//            $fileName = $part->code . '.jpg';
+//
+//            $part->image()->create([
+//                'url' => $fileName,
+//                'name' => $fileName,
+//            ]);
+//        });
+//        dd('ok');
+
         \DB::beginTransaction();
 
         try {
             $part = Part::where('code', $dto->code)->first();
+
+            if (!$part) {
+                return;
+            }
 
             $part->image()->delete();
 
