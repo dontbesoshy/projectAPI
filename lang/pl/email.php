@@ -16,4 +16,12 @@ return [
         'subject' => config('app.name') . ': Nowe hasło',
         'line' => 'Twoje nowe hasło do logowania: :newPassword',
     ],
+
+    'SendOrderNotification' => [
+        'greeting' => 'Cześć!',
+        'subject' => config('app.name') . ': Nowe zamówienie',
+        'line' => 'Nowe zamówienie:',
+        'fromUser' => 'Od kontrahenta: :name',
+        'totalNet' => 'Suma netto: :totalNet zł',
+    ],
 ];
