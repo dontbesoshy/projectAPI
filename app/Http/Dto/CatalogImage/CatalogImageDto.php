@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Dto\Image;
+namespace App\Http\Dto\CatalogImage;
 
 use App\Http\Dto\BasicDto;
 use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Attributes\Validation\File;
 
-class CreateImageDto extends BasicDto
+class CatalogImageDto extends BasicDto
 {
-    #[File]
-    public UploadedFile $file;
+    public array $catalogImageIds;
 }

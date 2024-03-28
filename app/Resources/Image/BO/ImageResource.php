@@ -3,7 +3,6 @@
 namespace App\Resources\Image\BO;
 
 use App\Resources\BasicResource;
-use App\Resources\PriceList\BO\PriceListItemResource;
 
 class ImageResource extends BasicResource
 {
@@ -17,8 +16,6 @@ class ImageResource extends BasicResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'url' => $this->url,
-            'part' => new PriceListItemResource($this->part),
         ];
     }
 }

@@ -323,7 +323,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{localhost}}/api/bo/priceLists/2",
+									"raw": "{{localhost}}/api/bo/priceLists/1",
 									"host": [
 										"{{localhost}}"
 									],
@@ -331,7 +331,7 @@
 										"api",
 										"bo",
 										"priceLists",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -397,7 +397,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -419,7 +420,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "{{localhost}}/api/bo/priceLists/1/attachUser/3",
+									"raw": "{{localhost}}/api/bo/priceLists/1/attachUser/1",
 									"host": [
 										"{{localhost}}"
 									],
@@ -429,7 +430,7 @@
 										"priceLists",
 										"1",
 										"attachUser",
-										"3"
+										"1"
 									]
 								}
 							},
@@ -813,16 +814,67 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "file",
+											"key": "images[]",
 											"type": "file",
-											"src": "/C:/Users/kajda/Desktop/data/katalog/0000.png"
-										},
-										{
-											"key": "code",
-											"value": "SFMCB100-XJ",
-											"type": "text"
+											"src": [
+												"/C:/Users/kajda/Desktop/data/img/images/accessories/3M OPTIME1.jpg",
+												"/C:/Users/kajda/Desktop/data/img/images/accessories/136.jpg",
+												"/C:/Users/kajda/Desktop/data/img/images/accessories/143.jpg",
+												"/C:/Users/kajda/Desktop/data/img/images/accessories/150.jpg",
+												"/C:/Users/kajda/Desktop/data/img/images/accessories/167.jpg"
+											]
 										}
 									]
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/images",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete images",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imageIds\": [11,12,13]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
 								"url": {
 									"raw": "{{localhost}}/api/bo/images",
@@ -903,11 +955,67 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "file",
+											"key": "catalogImages[]",
 											"type": "file",
-											"src": "///wsl.localhost/Ubuntu-20.04/home/tokey97/MP/API/documents/postman/files/correct_image.png"
+											"src": [
+												"/C:/Users/kajda/Desktop/data/katalog/0001.png",
+												"/C:/Users/kajda/Desktop/data/katalog/0002.png",
+												"/C:/Users/kajda/Desktop/data/katalog/0003.png",
+												"/C:/Users/kajda/Desktop/data/katalog/0004.png",
+												"/C:/Users/kajda/Desktop/0000.png"
+											]
 										}
 									]
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/catalogImages",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"catalogImages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete catalog images",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"catalogImageIds\": [11,12,13]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
 								"url": {
 									"raw": "{{localhost}}/api/bo/catalogImages",

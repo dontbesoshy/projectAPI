@@ -42,14 +42,16 @@ Route::group(
         | Images
         |--------------------------------------------------------------------------
         */
-        Route::apiResource('images', ImageController::class)->only(['index', 'store']);
+        Route::apiResource('images', ImageController::class)->only(['index', 'store', 'destroy']);
+        Route::delete('images', [ImageController::class, 'destroy']);
 
         /*
         |--------------------------------------------------------------------------
         | Catalog image
         |--------------------------------------------------------------------------
         */
-        Route::apiResource('catalogImages', CatalogImageController::class)->only(['index', 'store']);
+        Route::apiResource('catalogImages', CatalogImageController::class)->only(['index', 'store', 'destroy']);
+        Route::delete('catalogImages', [CatalogImageController::class, 'destroy']);
 
         /*
         |--------------------------------------------------------------------------

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Image\BO;
 
 use App\Http\Controllers\Controller;
-use App\Http\Dto\File\UploadedFileDto;
-use App\Http\Dto\Image\CreateImageDto;
+use App\Http\Dto\Image\FilesDto;
+use App\Http\Dto\Image\ImageDto;
 use App\Services\Image\BO\ImageService;
 use Illuminate\Http\JsonResponse;
 
@@ -32,13 +32,26 @@ class ImageController extends Controller
     /**
      * Store new image.
      *
-     * @param CreateImageDto $dto
+     * @param FilesDto $dto
      *
      * @return JsonResponse
      */
-    public function store(CreateImageDto $dto): JsonResponse
+    public function store(FilesDto $dto): JsonResponse
     {
         $this->imageService->store($dto);
         return $this->CREATED();
+    }
+
+    /**
+     * Delete image.
+     *
+     * @param ImageDto $dto
+     *
+     * @return JsonResponse
+     */
+    public function destroy(ImageDto $dto)
+    {
+        $this->imageService->destroy($dto);
+        return $this->OK();
     }
 }

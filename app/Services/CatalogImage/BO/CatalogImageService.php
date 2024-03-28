@@ -2,7 +2,8 @@
 
 namespace App\Services\CatalogImage\BO;
 
-use App\Http\Dto\CatalogImage\CreateCatalogImageDto;
+use App\Http\Dto\CatalogImage\CatalogImageDto;
+use App\Http\Dto\CatalogImage\FilesDto;
 use App\Models\CatalogImage;
 use App\Resources\CatalogImage\BO\CatalogImageCollection;
 use App\Services\BasicService;
@@ -17,54 +18,54 @@ class CatalogImageService extends BasicService
      */
     public function index(): CatalogImageCollection
     {
-        $queryBuilder = CatalogImage::query()->latest();
+        $catalogImages = CatalogImage::query()->get()->sortBy('name');
 
-        return new CatalogImageCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
+        return new CatalogImageCollection($catalogImages);
     }
 
     /**
      * Store a new image.
      *
-     * @param CreateCatalogImageDto $dto
+     * @param FilesDto $dto
      *
      * @return void
      */
-    public function store(CreateCatalogImageDto $dto): void
+    public function store(FilesDto $dto): void
     {
-//        $folder = 'C:\Users\kajda\Desktop\img\images\catalog';
-//
-//        $pliki = scandir($folder);
-//
-//        $pliki = array_filter($pliki, function($item) use ($folder) {
-//            return !is_dir($folder . '/' . $item);
-//        });
-//
-//        $pliki = collect($pliki)->map(function($item) {
-//            return explode('.', $item)[0];
-//        });
-//
-//        $pliki->each(function($image) use ($folder) {
-//            CatalogImage::create([
-//                'url' => $image . '.png',
-//                'name' => $image . '.png',
-//            ]);
-//        });
-//        dd('ok');
         \DB::beginTransaction();
 
         try {
-            $fileName = $dto->file->getClientOriginalName();
+            foreach ($dto->catalogImages as $image) {
+                $fileName = $image->getClientOriginalName();
 
-            Storage::disk('public')->put($fileName, file_get_contents($dto->file));
+                CatalogImage::query()->updateOrCreate([
+                    'url' => 'catalog/'.$fileName,
+                    'name' => $fileName,
+                ]);
 
-            CatalogImage::updateOrCreate([
-                'url' => $fileName,
-                'name' => $fileName,
-            ]);
+                Storage::disk('public')->put('catalog/'.$fileName, file_get_contents($image));
+            }
 
             \DB::commit();
         } catch (\Throwable $e) {
             $this->rollBackThrow($e);
         }
+    }
+
+    /**
+     * Delete catalog images.
+     *
+     * @param CatalogImageDto $dto
+     *
+     * @return void
+     */
+    public function destroy(CatalogImageDto $dto): void
+    {
+        CatalogImage::query()
+            ->whereIn('id', $dto->catalogImageIds)
+            ->each(function ($catalogImage) {
+                Storage::disk('public')->delete($catalogImage->url);
+                $catalogImage->delete();
+            });
     }
 }

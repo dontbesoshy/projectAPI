@@ -16,7 +16,6 @@ class CatalogImageResource extends BasicResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'url' => $this->url,
         ];
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Services\Image\BO;
 
-use App\Http\Dto\Image\CreateImageDto;
+use App\Http\Dto\Image\FilesDto;
+use App\Http\Dto\Image\ImageDto;
 use App\Models\Image;
 use App\Models\Part;
 use App\Resources\Image\BO\ImageCollection;
@@ -18,67 +19,63 @@ class ImageService extends BasicService
      */
     public function index(): ImageCollection
     {
-        $queryBuilder = Image::query()->with('part');
+        $catalogImages = Image::query()->get()->sortBy('name');
 
-        return new ImageCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
+        return new ImageCollection($catalogImages);
     }
 
     /**
      * Store a new image.
      *
-     * @param CreateImageDto $dto
+     * @param FilesDto $dto
      *
      * @return void
      */
-    public function store(CreateImageDto $dto): void
+    public function store(FilesDto $dto): void
     {
-//        $folder = 'C:\Users\kajda\Desktop\img\images\accessories';
-//
-//        $pliki = scandir($folder);
-//
-//        $pliki = array_filter($pliki, function($item) use ($folder) {
-//            return !is_dir($folder . '/' . $item);
-//        });
-//
-//        $pliki = collect($pliki)->map(function($item) {
-//            return explode('.', $item)[0];
-//        });
-//
-//        $parts = Part::whereIn('code', $pliki)->get();
-//
-//        $parts->each(function($part) use ($folder) {
-//            $fileName = $part->code . '.jpg';
-//
-//            $part->image()->create([
-//                'url' => $fileName,
-//                'name' => $fileName,
-//            ]);
-//        });
-//        dd('ok');
-
         \DB::beginTransaction();
 
         try {
-            $part = Part::where('code', $dto->code)->first();
+            foreach ($dto->images as $image) {
+                $fileName = $image->getClientOriginalName();
 
-            if (!$part) {
-                return;
+                $code = explode('.', $fileName)[0];
+
+                $part = Part::query()->where('code', $code)->first();
+
+                if (!$part) {
+                    $code = null;
+                }
+
+                Image::query()->updateOrCreate([
+                    'part_code' => $code,
+                    'url' => 'parts/'.$fileName,
+                    'name' => $fileName,
+                ]);
+
+                Storage::disk('public')->put('parts/'.$fileName, file_get_contents($image));
             }
-
-            $part->image()->delete();
-
-            $fileName = $dto->file->getClientOriginalName();
-
-            Storage::disk('public')->put($fileName, file_get_contents($dto->file));
-
-            $part->image()->create([
-                'url' => $fileName,
-                'name' => $fileName,
-            ]);
 
             \DB::commit();
         } catch (\Throwable $e) {
             $this->rollBackThrow($e);
         }
+    }
+
+    /**
+     * Delete images.
+     *
+     * @param ImageDto $dto
+     *
+     * @return void
+     */
+    public function destroy(ImageDto $dto): void
+    {
+        Image::query()
+            ->whereIn('id', $dto->imageIds)
+            ->each(function ($image) {
+                Storage::disk('public')->delete($image->url);
+                $image->delete();
+            });
     }
 }

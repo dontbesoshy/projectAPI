@@ -16,15 +16,6 @@ class ImageCollection extends ResourceCollection
      */
     public function toArray($request): array
     {
-        return [
-            'paginate' => [
-                'currentPage' => $this->currentPage(),
-                'totalPages' => $this->lastPage(),
-                'perPage' => $this->perPage(),
-                'countRecords' => $this->count(),
-                'totalRecords' => $this->total(),
-            ],
-            'data' => $this->collection,
-        ];
+        return parent::toArray($request);
     }
 }
