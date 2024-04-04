@@ -45,7 +45,8 @@ class UserService extends BasicService
                 'password' => $dto->password,
                 'company_name' => $dto->companyName,
                 'company_address' => $dto->companyAddress,
-                'type' => UserTypeEnum::CLIENT
+                'type' => UserTypeEnum::CLIENT,
+                'login' => $dto->login,
             ]);
 
             $token = $user

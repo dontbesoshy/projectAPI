@@ -18,6 +18,7 @@ class UserFactory extends Factory
     {
         return [
             'email' => 'admin@admin.com',
+            'login' => 'admin',
             'email_verified_at' => now(),
             'type' => UserTypeEnum::ADMIN,
             'password' => Hash::make('password'),

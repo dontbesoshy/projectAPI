@@ -8,8 +8,8 @@ use Spatie\LaravelData\Attributes\Validation\Max;
 
 class LoginUserDto extends BasicDto
 {
-    #[Email]
-    public string $email;
+    #[Max(250)]
+    public string $login;
 
     #[Max(250)]
     public string $password;

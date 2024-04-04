@@ -16,6 +16,7 @@ class UserResource extends BasicResource
         return [
             'id' => $this->id,
             'email' => $this->email,
+            'login' => $this->login,
         ];
     }
 }

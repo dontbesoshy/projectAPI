@@ -22,7 +22,7 @@ class AuthService extends BasicService
      */
     public function authenticate(LoginUserDto $request): LoginResource
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('login', $request->login)->first();
 
         $this->throwIf(
             !$user ||!Hash::check($request->password, $user->password),

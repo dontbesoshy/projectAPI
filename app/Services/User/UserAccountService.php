@@ -5,6 +5,7 @@ namespace App\Services\User;
 use App\Exceptions\User\RegisterToken\RegisterTokenNotValidException;
 use App\Exceptions\User\UserNotFoundException;
 use App\Http\Dto\User\PO\EmailDto;
+use App\Http\Dto\User\PO\LoginDto;
 use App\Models\User\RegisterToken;
 use App\Models\User\User;
 use App\Notifications\User\PO\SendEmailToUserWithNewPasswordNotification;
@@ -65,13 +66,13 @@ class UserAccountService extends BasicService
     /**
      * Forgot password.
      *
-     * @param EmailDto $dto
+     * @param LoginDto $dto
      *
      * @return void
      */
-   public function forgotPassword(EmailDto $dto): void
+   public function forgotPassword(LoginDto $dto): void
    {
-       $user = User::where('email', $dto->email)->first();
+       $user = User::where('login', $dto->login)->first();
 
        $this->throwIf(
            !$user,

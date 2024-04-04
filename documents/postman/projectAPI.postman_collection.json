@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"tes22123t@test.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\"\r\n}",
+							"raw": "{\r\n    \"email\": \"tes22123t@test.com\",\r\n    \"login\": \"test\",\r\n    \"password\": \"password\",\r\n    \"name\": \"john doe\",\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -48,7 +48,8 @@
 									"    pm.environment.set(\"LOGIN_API_TOKEN\", jsonData.data.token);\r",
 									"}"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -57,7 +58,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"login\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -181,7 +182,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -200,7 +202,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"client@client.com\",\r\n    \"password\": \"password\",\r\n    \"companyName\": \"DRUT SP. z o.o.\",\r\n    \"companyAddress\": \"Warszawa, łagiewniki 4\"\r\n}",
+									"raw": "{\r\n    \"email\": \"client@client.com\",\r\n    \"login\": \"client\",\r\n    \"password\": \"password\",\r\n    \"companyName\": \"DRUT SP. z o.o.\",\r\n    \"companyAddress\": \"Warszawa, łagiewniki 4\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1197,7 +1199,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"client@client.com\"\r\n}",
+									"raw": "{\r\n    \"login\": \"client\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Dto\User\PO\EmailDto;
+use App\Http\Dto\User\PO\LoginDto;
 use App\Services\User\UserAccountService;
 use Illuminate\Http\JsonResponse;
 
@@ -34,11 +34,11 @@ class UserAccountController extends Controller
     /**
      * Forgot password.
      *
-     * @param EmailDto $email
+     * @param LoginDto $email
      *
      * @return JsonResponse
      */
-    public function forgotPassword(EmailDto $email): JsonResponse
+    public function forgotPassword(LoginDto $email): JsonResponse
     {
         $this->userAccountService->forgotPassword($email);
         return $this->OK();

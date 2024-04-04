@@ -28,6 +28,7 @@ class UserService extends BasicService
                 'email' => $dto->email,
                 'password' => $dto->password,
                 'name' => $dto->name,
+                'login' => $dto->login,
                 'type' => UserTypeEnum::CLIENT,
             ]);
 
