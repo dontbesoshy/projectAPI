@@ -44,9 +44,9 @@ class UserService extends BasicService
                 'email' => $dto->email,
                 'password' => $dto->password,
                 'company_name' => $dto->companyName,
-                'company_address' => $dto->companyAddress,
                 'type' => UserTypeEnum::CLIENT,
                 'login' => $dto->login,
+                'email_verified_at' => now(),
             ]);
 
             $token = $user

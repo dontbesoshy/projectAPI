@@ -19,7 +19,6 @@ class UserResource extends BasicResource
             'password' => $this->password,
             'login' => $this->login,
             'companyName' => $this->company_name,
-            'companyAddress' => $this->company_address,
             'priceList' => $this->priceLists->first()?->name
         ];
     }

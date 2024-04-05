@@ -58,7 +58,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"login\": \"client23\",\r\n    \"password\": \"password2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -202,7 +202,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"client@client.com\",\r\n    \"login\": \"client\",\r\n    \"password\": \"password\",\r\n    \"companyName\": \"DRUT SP. z o.o.\",\r\n    \"companyAddress\": \"Warszawa, łagiewniki 4\"\r\n}",
+									"raw": "{\r\n    \"email\": \"client23@client.com\",\r\n    \"login\": \"client23\",\r\n    \"password\": \"password\",\r\n    \"companyName\": \"DRUT SP. z o.o.\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1067,6 +1067,57 @@
 										"api",
 										"ad",
 										"priceList"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set new password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"password2\",\r\n    \"newPassword\": \"password2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/ad/users/4",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"ad",
+										"users",
+										"4"
 									]
 								}
 							},
