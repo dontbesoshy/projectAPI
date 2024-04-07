@@ -52,6 +52,20 @@ class UserController extends Controller
      */
     public function setNewPassword(User $user, NewPasswordDto $request): JsonResponse
     {
-        return $this->OK($this->userService->setNewPassword($user, $request));
+        $this->userService->setNewPassword($user, $request);
+        return $this->OK();
+    }
+
+    /**
+     * Delete user.
+     *
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function destroy(User $user): JsonResponse
+    {
+        $this->userService->delete($user);
+        return $this->OK();
     }
 }
