@@ -124,7 +124,12 @@ class PriceListService extends BasicService
      */
     public function delete(PriceList $priceList): void
     {
-        $priceList->parts()->update(['price' => 0]);
+        DB::table('price_list_user')
+            ->where('price_list_id', $priceList->id)
+            ->delete();
+
+        $priceList->parts()->forceDelete();
+        $priceList->delete();
     }
 
     /**
