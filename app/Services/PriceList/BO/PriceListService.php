@@ -127,9 +127,7 @@ class PriceListService extends BasicService
         DB::table('price_list_user')
             ->where('price_list_id', $priceList->id)
             ->delete();
-
-        $priceList->parts()->forceDelete();
-        $priceList->update(['active' => now()]);
+        $priceList->update(['active' => false]);
     }
 
     /**
