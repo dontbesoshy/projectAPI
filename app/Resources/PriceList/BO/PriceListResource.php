@@ -16,6 +16,7 @@ class PriceListResource extends BasicResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'createdAt' => $this->created_at,
         ];
     }
 }
