@@ -87,7 +87,7 @@ class UserService extends BasicService
     public function delete(User $user): void
     {
         $user->registerToken()->forceDelete();
-        $user->priceLists()->forceDelete();
+        $user->priceLists()->detach();
         $user->delete();
     }
 }
