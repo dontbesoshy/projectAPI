@@ -13,6 +13,7 @@ class PriceList extends Model
 
     protected $fillable = [
         'name',
+        'active',
     ];
 
     /**

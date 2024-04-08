@@ -129,7 +129,7 @@ class PriceListService extends BasicService
             ->delete();
 
         $priceList->parts()->forceDelete();
-        $priceList->delete();
+        $priceList->update(['active' => now()]);
     }
 
     /**
