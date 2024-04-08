@@ -21,7 +21,8 @@ class UserService extends BasicService
     {
         $queryBuilder = User::query()
             ->with('priceLists')
-            ->where('type', '=', UserTypeEnum::CLIENT);
+            ->where('type', '=', UserTypeEnum::CLIENT)
+            ->orderBy('company_name');
 
         return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
     }
