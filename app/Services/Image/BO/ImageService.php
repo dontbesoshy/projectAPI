@@ -49,7 +49,7 @@ class ImageService extends BasicService
 
                 Image::query()->updateOrCreate([
                     'part_code' => $code,
-                    'url' => 'parts/'.$fileName,
+                    'url' => $fileName,
                     'name' => $fileName,
                 ]);
 
