@@ -4,6 +4,7 @@ namespace App\Services\PriceList\BO;
 
 use App\Http\Dto\File\UploadedFileDto;
 use App\Http\Dto\PriceList\UpdatePriceListDto;
+use App\Models\Image;
 use App\Models\Part;
 use App\Models\PriceList;
 use App\Models\User\User;
@@ -61,7 +62,9 @@ class PriceListService extends BasicService
 
             $reader->open(Storage::disk('local')->path($fileName));
 
-            $priceList = PriceList::query()->with('parts')->updateOrCreate(['name' => $fileName]);
+            $priceList = PriceList::query()
+                ->with('parts')
+                ->updateOrCreate(['name' => $fileName, 'active' => true]);
 
             $parts = collect($reader)
                 ->mapWithKeys(fn ($row, $key) => [$key => [
@@ -75,8 +78,28 @@ class PriceListService extends BasicService
                 ]])
                 ->toArray();
 
-            Part::query()->where('price_list_id', $priceList->id)->delete();
+            //Part::query()->where('price_list_id', $priceList->id)->delete();
             Part::insert($parts);
+
+            $images = collect($reader)
+                ->mapWithKeys(function ($row, $key) {
+                    $code = $row[2];
+
+                    if (!$code) {
+                        return [];
+                    }
+
+                    return [$key => [
+                        'part_code' => $code,
+                        'url' => $row[2].'.jpg',
+                        'name' => $row[2].'.jpg',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]];
+                })
+                ->toArray();
+
+            Image::insert($images);
 
             DB::commit();
         } catch (\Throwable $e) {
