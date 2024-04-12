@@ -74,7 +74,7 @@ HTML;
                 'totalNet' => $this->dto->totalNet
             ]))
             ->attach(
-                storage_path('app/orders/' . str_replace(' ', '_', User::find($this->dto->userId)->company_name) . '_' . now()->format('d_m_Y_H_i') . '.pdf')
+                storage_path('app/orders/' . str_replace(' ', '_', User::find($this->dto->userId)->company_name) . '_' . now()->format('d_m_Y_H') . '.pdf')
             );
     }
 
