@@ -52,7 +52,7 @@ class OrderService extends BasicService
 ');
 
         Storage::disk('local')->put(
-            'orders/'.$user->company_name.'_'.now()->format('d_m_Y_H_i').'.pdf', $pdf->stream()
+            'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H_i').'.pdf', $pdf->stream()
         );
 
         //$allPdfs = Storage::disk('public')->allFiles('orders');
