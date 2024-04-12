@@ -72,7 +72,10 @@ HTML;
 
             ->line(__('email.SendOrderNotification.totalNet', [
                 'totalNet' => $this->dto->totalNet
-            ]));
+            ]))
+            ->attach(
+                storage_path('app/orders/' . User::find($this->dto->userId)->company_name . '_' . now()->format('d_m_Y_H_i') . '.pdf')
+            );
     }
 
     /**
