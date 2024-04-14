@@ -17,7 +17,7 @@ class PriceListResource extends BasicResource
             'id' => $this->id,
             'name' => $this->name,
             'active' => $this->active,
-            'createdAt' => $this->created_at,
+            'createdAt' => $this->updated_at,
         ];
     }
 }
