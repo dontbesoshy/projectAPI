@@ -24,11 +24,11 @@ class OrderService extends BasicService
         $pdf = \App::make('dompdf.wrapper');
         $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial, sans-serif;margin: 20px 0;">
                 <tr>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px">EAN</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Nazwa towaru</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Kod produktu</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Cena</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Sztuk</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 12px">EAN</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 12px;">Nazwa towaru</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 12px;">Kod produktu</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 12px;">Cena</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 12px;">Sztuk</th>
                 </tr>';
 
         foreach ($dto->orderItems as $product) {
