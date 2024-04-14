@@ -78,7 +78,7 @@ class PriceListService extends BasicService
                 ]])
                 ->toArray();
 
-            //Part::query()->where('price_list_id', $priceList->id)->delete();
+            Part::query()->whereIn('code', collect($parts)->pluck('code'))->delete();
             Part::insert($parts);
 
             $images = collect($reader)
