@@ -101,6 +101,8 @@ class PriceListService extends BasicService
 
             Image::insert($images);
 
+            $priceList->touch();
+
             DB::commit();
         } catch (\Throwable $e) {
             $this->rollBackThrow($e);
