@@ -72,7 +72,7 @@ class PriceListService extends BasicService
                     'ean' => $row[0],
                     'name' => $row[1],
                     'code' => $row[2],
-                    'price' => $row[3],
+                    'price' => $row[3] === '' || $row[3] === null ? 0 : $row[3],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]])
