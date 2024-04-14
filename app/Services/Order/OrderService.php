@@ -24,21 +24,21 @@ class OrderService extends BasicService
         $pdf = \App::make('dompdf.wrapper');
         $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial, sans-serif;margin: 20px 0;">
                 <tr>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 8px;background-color: #f2f2f2;color: #333;">EAN</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 8px;background-color: #f2f2f2;color: #333;">Nazwa towaru</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 8px;background-color: #f2f2f2;color: #333;">Kod produktu</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 8px;background-color: #f2f2f2;color: #333;">Cena</th>
-                    <th style="border: 1px solid #ddd;text-align: left; padding: 8px;background-color: #f2f2f2;color: #333;">Sztuk</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px">EAN</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Nazwa towaru</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Kod produktu</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Cena</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 10px;">Sztuk</th>
                 </tr>';
 
         foreach ($dto->orderItems as $product) {
             $table .= '
                 <tr>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 8px;">'. $product->ean. '</td>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 8px;">'. $product->name. '</td>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 8px;">'. $product->code. '</td>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 8px;">'. $product->price. '</td>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 8px;">'. $product->pieces. '</td>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->ean. '</td>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->name. '</td>
+                    <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->code. '</td>
+                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->price. '</td>
+                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->pieces. '</td>
                 </tr>
                 ';
         }
