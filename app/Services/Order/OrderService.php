@@ -34,11 +34,11 @@ class OrderService extends BasicService
         foreach ($dto->orderItems as $product) {
             $table .= '
                 <tr>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->ean. '</td>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->name. '</td>
-                    <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->code. '</td>
-                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->price. '</td>
-                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 8px; font-family: Arial-Narrow;">'. $product->pieces. '</td>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->ean. '</td>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->name. '</td>
+                    <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->code. '</td>
+                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->price. '</td>
+                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->pieces. '</td>
                 </tr>
                 ';
         }
