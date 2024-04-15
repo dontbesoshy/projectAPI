@@ -11,6 +11,7 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
+        'part_id',
         'part_code',
         'url',
         'name',
@@ -23,6 +24,6 @@ class Image extends Model
      */
     public function part(): BelongsTo
     {
-        return $this->belongsTo(Part::class, 'part_code', 'code');
+        return $this->belongsTo(Part::class);
     }
 }

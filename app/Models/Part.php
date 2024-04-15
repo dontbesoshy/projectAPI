@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Part extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'price_list_id',
@@ -38,6 +37,6 @@ class Part extends Model
      */
     public function image(): HasOne
     {
-        return $this->hasOne(Image::class, 'part_code', 'code')->latest();
+        return $this->hasOne(Image::class);
     }
 }

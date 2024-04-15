@@ -19,9 +19,9 @@ class ImageService extends BasicService
      */
     public function index(): ImageCollection
     {
-        $catalogImages = Image::query()->get()->unique('part_code')->values()->sortBy('name');
+        $images = Image::query()->get()->unique('part_code')->values()->sortBy('name');
 
-        return new ImageCollection($catalogImages);
+        return new ImageCollection($images);
     }
 
     /**

@@ -8,7 +8,7 @@ use App\Models\Image;
 use App\Models\Part;
 use App\Models\PriceList;
 use App\Models\User\User;
-use App\Resources\PriceList\AD\PriceListResource;
+use App\Resources\PriceList\BO\PriceListResource;
 use App\Resources\PriceList\BO\PriceListCollection;
 use App\Services\BasicService;
 use Aspera\Spreadsheet\XLSX\Reader;
@@ -62,44 +62,35 @@ class PriceListService extends BasicService
 
             $reader->open(Storage::disk('local')->path($fileName));
 
-            $priceList = PriceList::query()
-                ->with('parts')
-                ->updateOrCreate(['name' => $fileName, 'active' => true]);
-
             $parts = collect($reader)
                 ->mapWithKeys(fn ($row, $key) => [$key => [
-                    'price_list_id' => $priceList->id,
-                    'ean' => $row[0],
+                    'ean' => str_replace(' ', '', $row[0]),
                     'name' => $row[1],
-                    'code' => $row[2],
-                    'price' => $row[3] === '' || $row[3] === null ? 0 : $row[3],
+                    'code' => str_replace(' ', '', $row[2]),
+                    'price' => $row[3] === '' || $row[3] === null ? 0 : str_replace(' ', '', $row[3]),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]])
-                ->toArray();
+                ->filter(fn ($part) => $part['ean'] !== null && $part['name'] !== '' && $part['code'] !== '' && $part['price'] !== '');
 
-            Part::query()->whereIn('code', collect($parts)->pluck('code'))->delete();
-            Part::insert($parts);
+            $priceList = PriceList::where('name', $fileName)->first();
 
-            $images = collect($reader)
-                ->mapWithKeys(function ($row, $key) {
-                    $code = $row[2];
+            if ($priceList) {
+                Image::query()->whereIn('part_id', $priceList->parts->pluck('id'))->delete();
+                $priceList->parts()->delete();
+                $priceList->update(['active' => true]);
+            } else {
+                $priceList = PriceList::create(['name' => $fileName, 'active' => true]);
+            }
+            $priceList->parts()->createMany($parts->toArray());
 
-                    if (!$code) {
-                        return [];
-                    }
-
-                    return [$key => [
-                        'part_code' => $code,
-                        'url' => $row[2].'.jpg',
-                        'name' => $row[2].'.jpg',
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]];
-                })
-                ->toArray();
-
-            Image::insert($images);
+            $priceList->parts()->each(function (Part $part) {
+                $part->image()->create([
+                    'part_code' => $part->code,
+                    'url' => $part->code.'.jpg',
+                    'name' => $part->code.'.jpg',
+                ]);
+            });
 
             $priceList->touch();
 
@@ -123,6 +114,7 @@ class PriceListService extends BasicService
 
         try {
             Part::query()
+                ->where('price_list_id', $priceList->id)
                 ->whereIn('id', collect($dto->parts)->pluck('id'))
                 ->each(function (Part $part) use ($dto) {
                     $partFromDto = $dto->parts->first(fn ($partDto) => $partDto->id === $part->id);
@@ -149,10 +141,15 @@ class PriceListService extends BasicService
      */
     public function delete(PriceList $priceList): void
     {
+        Image::query()->whereIn('part_id', $priceList->parts->pluck('id'))->delete();
+
+        $priceList->parts()->delete();
+
         DB::table('price_list_user')
             ->where('price_list_id', $priceList->id)
             ->delete();
-        $priceList->update(['active' => false]);
+
+        $priceList->delete();
     }
 
     /**
