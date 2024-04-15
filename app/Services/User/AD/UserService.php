@@ -19,7 +19,7 @@ class UserService extends BasicService
     public function setNewPassword(User $user, NewPasswordDto $dto): void
     {
         $user->update([
-            'password' => bcrypt($dto->password),
+            'password' => bcrypt($dto->newPassword),
         ]);
     }
 }
