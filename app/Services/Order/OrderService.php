@@ -22,7 +22,7 @@ class OrderService extends BasicService
     {
         $user = User::find($dto->userId);
         $pdf = \App::make('dompdf.wrapper');
-        $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial, sans-serif;margin: 20px 0;">
+        $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial-Narrow;margin: 20px 0;">
                 <tr>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px">EAN</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Nazwa towaru</th>
@@ -35,7 +35,7 @@ class OrderService extends BasicService
             $table .= '
                 <tr>
                     <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->ean. '</td>
-                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->name. '</td>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: DejaVu Sans !important;">'. $product->name. '</td>
                     <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->code. '</td>
                     <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->price. '</td>
                     <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->pieces. '</td>
