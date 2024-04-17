@@ -39,12 +39,14 @@ class ImageService extends BasicService
             foreach ($dto->images as $image) {
                 $fileName = $image->getClientOriginalName();
 
-                $code = explode('.', $fileName)[0];
+                $code = explode('.', $fileName);
+                $ext = array_pop($code);
+                $code = implode('.',$code);
 
                 $part = Part::query()->where('code', $code)->first();
 
                 if (!$part) {
-                    $code = null;
+                    break;
                 }
 
                 Image::query()->updateOrCreate([
