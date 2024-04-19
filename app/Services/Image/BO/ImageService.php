@@ -43,17 +43,17 @@ class ImageService extends BasicService
                 $ext = array_pop($code);
                 $code = implode('.',$code);
 
-                $part = Part::query()->where('code', $code)->first();
+                Part::query()
+                    ->where('code', $code)
+                    ->each(function ($part) use ($fileName, $code) {
+                        $part->image()->delete();
 
-                if (!$part) {
-                    break;
-                }
-
-                Image::query()->updateOrCreate([
-                    'part_code' => $code,
-                    'url' => $fileName,
-                    'name' => $fileName,
-                ]);
+                        $part->image()->create([
+                            'part_code' => $code,
+                            'url' => $fileName,
+                            'name' => $fileName,
+                        ]);
+                    });
 
                 Storage::disk('public')->put('parts/'.$fileName, file_get_contents($image));
             }
