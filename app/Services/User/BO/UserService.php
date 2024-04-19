@@ -90,4 +90,16 @@ class UserService extends BasicService
         $user->priceLists()->detach();
         $user->delete();
     }
+
+    /**
+     * Clear counter login.
+     *
+     * @return void
+     */
+    public function clearCounterLogin(): void
+    {
+        User::query()->update([
+            'login_counter' => 0
+        ]);
+    }
 }

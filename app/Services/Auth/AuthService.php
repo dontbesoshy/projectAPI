@@ -41,6 +41,8 @@ class AuthService extends BasicService
             'token' => $token,
         ];
 
+        $user->update(['login_counter' => $user->login_counter + 1]);
+
         return new LoginResource($loginArray);
     }
 

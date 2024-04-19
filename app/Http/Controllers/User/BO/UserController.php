@@ -68,4 +68,15 @@ class UserController extends Controller
         $this->userService->delete($user);
         return $this->OK();
     }
+
+    /**
+     * Clear counter login.
+     *
+     * @return JsonResponse
+     */
+    public function clearCounterLogin(): JsonResponse
+    {
+        $this->userService->clearCounterLogin();
+        return $this->OK();
+    }
 }

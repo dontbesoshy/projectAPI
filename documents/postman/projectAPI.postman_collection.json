@@ -316,6 +316,48 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Clear login counters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/users/clearCounterLogin",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"users",
+										"clearCounterLogin"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -860,13 +902,7 @@
 										{
 											"key": "images[]",
 											"type": "file",
-											"src": [
-												"/C:/Users/kajda/Desktop/data/img/images/accessories/3M OPTIME1.jpg",
-												"/C:/Users/kajda/Desktop/data/img/images/accessories/136.jpg",
-												"/C:/Users/kajda/Desktop/data/img/images/accessories/143.jpg",
-												"/C:/Users/kajda/Desktop/data/img/images/accessories/150.jpg",
-												"/C:/Users/kajda/Desktop/data/img/images/accessories/167.jpg"
-											]
+											"src": "/C:/Users/kajda/Desktop/No.123..png"
 										}
 									]
 								},
