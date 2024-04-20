@@ -12,4 +12,6 @@ class OrderDto extends BasicDto
     public DataCollection $orderItems;
     public int $userId;
     public string $totalNet;
+
+    public ?string $comment;
 }

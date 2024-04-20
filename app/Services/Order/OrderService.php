@@ -45,9 +45,12 @@ class OrderService extends BasicService
 
         $table .= '</table>';
 
+        $comment = $dto->comment ?? 'Brak';
+
         $pdf->loadHTML('
 <h3>Od firmy: '. $user->company_name. '</h3>
 <h4>Suma netto: '. $dto->totalNet. ' PLN</h4>
+<h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
 <h5>Produkty:</h5>'. $table. '
 ');
 
