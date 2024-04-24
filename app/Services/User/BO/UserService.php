@@ -4,6 +4,7 @@ namespace App\Services\User\BO;
 
 use App\Enums\User\UserTypeEnum;
 use App\Http\Dto\User\BO\CreateUserDto;
+use App\Http\Dto\User\BO\NewLoginDto;
 use App\Http\Dto\User\BO\NewPasswordDto;
 use App\Models\User\User;
 use App\Resources\User\BO\UserCollection;
@@ -74,6 +75,21 @@ class UserService extends BasicService
     {
         $user->update([
             'password' => bcrypt($dto->newPassword)
+        ]);
+    }
+
+    /**
+     * Set new password.
+     *
+     * @param User $user
+     * @param NewLoginDto $dto
+     *
+     * @return void
+     */
+    public function setNewLogin(User $user, NewLoginDto $dto): void
+    {
+        $user->update([
+            'login' => $dto->newLogin
         ]);
     }
 

@@ -22,6 +22,7 @@ Route::group(
         Route::apiResource('users', UserController::class)->only(['index', 'store', 'destroy']);
 
         Route::post('users/{user}/setNewPassword', [UserController::class, 'setNewPassword']);
+        Route::post('users/{user}/setNewLogin', [UserController::class, 'setNewLogin']);
         Route::post('users/clearCounterLogin', [UserController::class, 'clearCounterLogin']);
 
         /*
