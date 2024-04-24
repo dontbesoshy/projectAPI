@@ -11,7 +11,6 @@ class OrderDto extends BasicDto
     #[DataCollectionOf(OrderItemDto::class)]
     public DataCollection $orderItems;
     public int $userId;
-    public string $totalNet;
 
     public ?string $comment;
 }

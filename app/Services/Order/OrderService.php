@@ -48,11 +48,27 @@ class OrderService extends BasicService
         $comment = $dto->comment ?? 'Brak';
 
         $pdf->loadHTML('
-<h3>Od firmy: '. $user->company_name. '</h3>
-<h4>Suma netto: '. $dto->totalNet. ' PLN</h4>
-<h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
-<h5>Produkty:</h5>'. $table. '
+<table width="100%">
+  <tr>
+    <td valign="top">
+      <h3>Klient: '. $user->company_name. '</h3>
+      <h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
+    </td>
+    <td valign="top" align="right">
+      <h3 style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding-right: 10px;">
+        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 100px; height: auto; margin-top: 20px !important;" />
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <h5>Produkty:</h5>'. $table . '
+    </td>
+  </tr>
+</table>
 ');
+
+
 
         Storage::disk('local')->put(
             'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H').'.pdf', $pdf->stream()
