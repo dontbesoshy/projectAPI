@@ -22,6 +22,7 @@ Route::group(
         */
         Route::get('priceList', [\App\Http\Controllers\PriceList\AD\PriceListController::class, 'show']);
         Route::post('makeOrder', [\App\Http\Controllers\Order\AD\OrderController::class, 'store']);
+        Route::post('generatePdf', [\App\Http\Controllers\Order\AD\OrderController::class, 'generatePdf']);
         Route::post('users/{user}', [\App\Http\Controllers\User\AD\UserController::class, 'setNewPassword']);
     }
 );

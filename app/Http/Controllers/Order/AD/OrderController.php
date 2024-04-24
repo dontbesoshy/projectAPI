@@ -31,4 +31,16 @@ class OrderController extends Controller
 
         return $this->OK();
     }
+
+    /**
+     * Generate pdf.
+     *
+     * @param OrderDto $request
+     *
+     * @return JsonResponse
+     */
+    public function generatePdf(OrderDto $request)
+    {
+        return $this->orderService->generatePdf($request);
+    }
 }

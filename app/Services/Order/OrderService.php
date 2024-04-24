@@ -83,4 +83,57 @@ class OrderService extends BasicService
                 $email->notify(new SendOrderNotification($dto));
             });
     }
+
+    public function generatePdf(OrderDto $dto)
+    {
+        $user = User::find($dto->userId);
+        $pdf = \App::make('dompdf.wrapper');
+        $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial-Narrow;margin: 20px 0;">
+                <tr>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px">EAN</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Nazwa towaru</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Kod produktu</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Cena</th>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Sztuk</th>
+                </tr>';
+
+        foreach ($dto->orderItems as $product) {
+            $table .= '
+                <tr>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->ean. '</td>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: DejaVu Sans !important;">'. $product->name. '</td>
+                    <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->code. '</td>
+                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->price. '</td>
+                    <td style="border: 1px solid #ddd;text-align: right; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->pieces. '</td>
+                </tr>
+                ';
+        }
+
+        $table .= '</table>';
+
+        $comment = $dto->comment ?? 'Brak';
+
+        $pdf->loadHTML('
+<table width="100%">
+  <tr>
+    <td valign="top">
+      <h3>Klient: '. $user->company_name. '</h3>
+      <h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
+    </td>
+    <td valign="top" align="right">
+      <h3 style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding-right: 10px;">
+        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 100px; height: auto; margin-top: 20px !important;" />
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <h5>Produkty:</h5>'. $table . '
+    </td>
+  </tr>
+</table>
+');
+
+        return $pdf->stream();
+    }
 }
