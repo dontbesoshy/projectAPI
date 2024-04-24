@@ -56,7 +56,7 @@ class OrderService extends BasicService
     </td>
     <td valign="top" align="right">
       <h3 style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding-right: 10px;">
-        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 100px; height: auto; margin-top: 20px !important;" />
+        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 150px; height: auto; margin-top: 20px !important;" />
       </h3>
     </td>
   </tr>
@@ -122,7 +122,7 @@ class OrderService extends BasicService
     </td>
     <td valign="top" align="right">
       <h3 style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding-right: 10px;">
-        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 100px; height: auto; margin-top: 20px !important;" />
+        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 150px; height: auto; margin-top: 20px !important;" />
       </h3>
     </td>
   </tr>
