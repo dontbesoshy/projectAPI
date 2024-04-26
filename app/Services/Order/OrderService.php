@@ -24,6 +24,7 @@ class OrderService extends BasicService
         $pdf = \App::make('dompdf.wrapper');
         $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial-Narrow;margin: 20px 0;">
                 <tr>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px">LP</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px">EAN</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Nazwa towaru</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Kod produktu</th>
@@ -31,9 +32,10 @@ class OrderService extends BasicService
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Sztuk</th>
                 </tr>';
 
-        foreach ($dto->orderItems as $product) {
+        foreach ($dto->orderItems as $key => $product) {
             $table .= '
                 <tr>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $key. '</td>
                     <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->ean. '</td>
                     <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: DejaVu Sans !important;">'. $product->name. '</td>
                     <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->code. '</td>
@@ -62,7 +64,7 @@ class OrderService extends BasicService
   </tr>
   <tr>
     <td colspan="2">
-      <h5>Produkty:</h5>'. $table . '
+      '. $table . '
     </td>
   </tr>
 </table>
@@ -90,6 +92,7 @@ class OrderService extends BasicService
         $pdf = \App::make('dompdf.wrapper');
         $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial-Narrow;margin: 20px 0;">
                 <tr>
+                    <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px">LP</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px">EAN</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Nazwa towaru</th>
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Kod produktu</th>
@@ -97,9 +100,10 @@ class OrderService extends BasicService
                     <th style="border: 1px solid #ddd;text-align: left; padding: 1px;background-color: #f2f2f2;color: #333; font-size: 15px;">Sztuk</th>
                 </tr>';
 
-        foreach ($dto->orderItems as $product) {
+        foreach ($dto->orderItems as $key => $product) {
             $table .= '
                 <tr>
+                    <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $key. '</td>
                     <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->ean. '</td>
                     <td style="border: 1px solid #ddd;text-align: left; padding: 2px; font-size: 11px; font-family: DejaVu Sans !important;">'. $product->name. '</td>
                     <td style="border: 1px solid #ddd;text-align: center; padding: 2px; font-size: 11px; font-family: Arial-Narrow;">'. $product->code. '</td>
@@ -128,7 +132,7 @@ class OrderService extends BasicService
   </tr>
   <tr>
     <td colspan="2">
-      <h5>Produkty:</h5>'. $table . '
+      '. $table . '
     </td>
   </tr>
 </table>
