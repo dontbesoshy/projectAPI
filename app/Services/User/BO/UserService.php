@@ -20,12 +20,13 @@ class UserService extends BasicService
      */
     public function index(): UserCollection
     {
-        $queryBuilder = User::query()
+        $users = User::query()
             ->with('priceLists')
             ->where('type', '=', UserTypeEnum::CLIENT)
-            ->orderBy('company_name');
+            ->orderBy('company_name')
+            ->get();
 
-        return new UserCollection($queryBuilder->customPaginate(config('settings.pagination.perPage')));
+        return new UserCollection($users);
     }
 
     /**
