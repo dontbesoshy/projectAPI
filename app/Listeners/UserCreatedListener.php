@@ -13,6 +13,6 @@ class UserCreatedListener
     {
         $user = $event->user;
 
-        $user->notify(new SendEmailToUserWithTokenNotification($user));
+        //$user->notify(new SendEmailToUserWithTokenNotification($user));
     }
 }

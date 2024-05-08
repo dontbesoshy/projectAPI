@@ -35,7 +35,7 @@ class UserAccountService extends BasicService
             $token = $user->registerToken;
         }
 
-        $user->notify(new SendEmailToUserWithTokenNotification($user, $token));
+        //$user->notify(new SendEmailToUserWithTokenNotification($user, $token));
     }
 
     /**
