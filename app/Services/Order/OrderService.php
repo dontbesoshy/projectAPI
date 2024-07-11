@@ -50,24 +50,20 @@ class OrderService extends BasicService
         $comment = $dto->comment ?? 'Brak';
 
         $pdf->loadHTML('
-<table width="100%">
-  <tr>
-    <td valign="top">
-      <h3>Klient: '. $user->company_name. '</h3>
-      <h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
-    </td>
-    <td valign="top" align="right">
-      <h3 style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding-right: 10px;">
-        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 150px; height: auto; margin-top: 20px !important;" />
-      </h3>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      '. $table . '
-    </td>
-  </tr>
-</table>
+<div style="width: 100%; display: flex; justify-content: space-between;">
+<div style="flex: 1; display: flex; justify-content: flex-end; align-items: flex-start;">
+    <h3 style="margin: 0;">
+      <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 150px; height: auto; margin-top: 20px !important;" />
+    </h3>
+  </div>
+  <div style="flex: 1; padding-right: 10px;">
+    <h3>Klient: '. $user->company_name. '</h3>
+    <h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
+  </div>
+</div>
+<div style="width: 100%; margin-top: 20px;">
+ '. $table . '
+</div>
 ');
 
 
@@ -118,24 +114,20 @@ class OrderService extends BasicService
         $comment = $dto->comment ?? 'Brak';
 
         $pdf->loadHTML('
-<table width="100%">
-  <tr>
-    <td valign="top">
-      <h3>Klient: '. $user->company_name. '</h3>
-      <h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
-    </td>
-    <td valign="top" align="right">
-      <h3 style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding-right: 10px;">
-        <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 150px; height: auto; margin-top: 20px !important;" />
-      </h3>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      '. $table . '
-    </td>
-  </tr>
-</table>
+<div style="width: 100%; display: flex; justify-content: space-between;">
+<div style="flex: 1; display: flex; justify-content: flex-end; align-items: flex-start;">
+    <h3 style="margin: 0;">
+      <img src="https://extremetoolsb2b.pl/images/logo.jpg" style="width: 150px; height: auto; margin-top: 20px !important;" />
+    </h3>
+  </div>
+  <div style="flex: 1; padding-right: 10px;">
+    <h3>Klient: '. $user->company_name. '</h3>
+    <h5 style="font-family: DejaVu Sans !important;">Uwagi do zamówienia: ' .  $comment . '</h5>
+  </div>
+</div>
+<div style="width: 100%; margin-top: 20px;">
+ '. $table . '
+</div>
 ');
 
         return $pdf->stream();
