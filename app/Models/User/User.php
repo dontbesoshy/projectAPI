@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Enums\User\UserTypeEnum;
+use App\Models\Cart;
 use App\Models\PriceList;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -82,5 +83,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         return $this->type === UserTypeEnum::ADMIN;
+    }
+
+    /**
+     * User has one cart.
+     *
+     * @return HasOne
+     */
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class);
     }
 }
