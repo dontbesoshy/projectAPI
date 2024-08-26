@@ -21,7 +21,7 @@ class CartService extends BasicService
     public function show(User $user): ?CartCollection
     {
         if (!$user->cart) {
-            return null;
+            return new CartCollection(collect());
         }
         $cartItems = $user->cart->cartItems;
 
