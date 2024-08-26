@@ -3,6 +3,7 @@
 namespace App\Services\Cart\AD;
 
 use App\Http\Dto\Cart\CreateCartDto;
+use App\Models\CartItem;
 use App\Models\User\User;
 use App\Resources\Cart\AD\CartCollection;
 use App\Services\BasicService;
@@ -15,10 +16,13 @@ class CartService extends BasicService
      *
      * @param User $user
      *
-     * @return CartCollection
+     * @return ?CartCollection
      */
-    public function show(User $user): CartCollection
+    public function show(User $user): ?CartCollection
     {
+        if (!$user->cart) {
+            return null;
+        }
         $cartItems = $user->cart->cartItems;
 
         return new CartCollection($cartItems);
@@ -39,9 +43,13 @@ class CartService extends BasicService
 
             $items = $dto->items;
 
-            $user->cart?->delete();
+            if ($user->cart === null) {
+                $user->cart()->create();
+            }
 
-            $cart = $user->cart()->create();
+            $cart = $user->cart()->first();
+
+            CartItem::query()->where('cart_id', $cart->id)->delete();
 
             foreach ($items as $item) {
                 $cart->cartItems()->create([

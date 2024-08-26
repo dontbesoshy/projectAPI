@@ -23,7 +23,7 @@ class CartController extends Controller
      *
      * @return JsonResponse
      */
-    public function show()
+    public function show(): JsonResponse
     {
         return $this->OK($this->cartService->show(auth()->user()));
     }
