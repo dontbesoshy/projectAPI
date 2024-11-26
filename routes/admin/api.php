@@ -29,5 +29,19 @@ Route::group(
 
         Route::post('cart', [\App\Http\Controllers\Cart\AD\CartController::class, 'store']);
         Route::get('cartItems', [\App\Http\Controllers\Cart\AD\CartController::class, 'show']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Promotions
+        |--------------------------------------------------------------------------
+        */
+        Route::apiResource('promotions', \App\Http\Controllers\Promotion\AD\PromotionController::class)->only(['index']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | News
+        |--------------------------------------------------------------------------
+        */
+        Route::apiResource('news', \App\Http\Controllers\News\AD\NewsController::class)->only(['index']);
     }
 );

@@ -4,6 +4,7 @@ use App\Http\Controllers\CatalogImage\BO\CatalogImageController;
 use App\Http\Controllers\Email\BO\EmailController;
 use App\Http\Controllers\Image\BO\ImageController;
 use App\Http\Controllers\MainPhoto\BO\MainPhotoController;
+use App\Http\Controllers\News\BO\NewsController;
 use App\Http\Controllers\PriceList\BO\PriceListController;
 use App\Http\Controllers\Promotion\BO\PromotionController;
 use App\Http\Controllers\User\BO\UserController;
@@ -48,6 +49,13 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::apiResource('promotions', PromotionController::class)->only(['index', 'store', 'destroy']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | News
+        |--------------------------------------------------------------------------
+        */
+        Route::apiResource('news', NewsController::class)->only(['index', 'store', 'destroy']);
 
         /*
         |--------------------------------------------------------------------------
