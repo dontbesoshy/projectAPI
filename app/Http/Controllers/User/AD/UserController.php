@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\AD;
 
 use App\Http\Controllers\Controller;
+use App\Http\Dto\User\AD\FavoritePartsDto;
 use App\Http\Dto\User\AD\NewPasswordDto;
 use App\Models\User\User;
 use App\Services\User\AD\UserService;
@@ -31,5 +32,31 @@ class UserController extends Controller
     {
         $this->userService->setNewPassword($user, $dto);
         return $this->OK();
+    }
+
+    /**
+     * Sync favorite parts.
+     *
+     * @param User $user
+     * @param FavoritePartsDto $request
+     *
+     * @return JsonResponse
+     */
+    public function syncFavoriteParts(User $user, FavoritePartsDto $request): JsonResponse
+    {
+        $this->userService->syncFavoriteParts($user, $request);
+        return $this->OK();
+    }
+
+    /**
+     * Get favorite parts.
+     *
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function getFavoriteParts(User $user): JsonResponse
+    {
+        return $this->OK($this->userService->getFavoriteParts($user));
     }
 }
