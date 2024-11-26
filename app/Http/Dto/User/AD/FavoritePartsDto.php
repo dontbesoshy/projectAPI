@@ -8,5 +8,5 @@ use Spatie\LaravelData\Attributes\Validation\Distinct;
 class FavoritePartsDto extends BasicDto
 {
     #[Distinct]
-    public array $partIds = [];
+    public ?array $partIds = [];
 }
