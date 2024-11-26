@@ -5,6 +5,7 @@ use App\Http\Controllers\Email\BO\EmailController;
 use App\Http\Controllers\Image\BO\ImageController;
 use App\Http\Controllers\MainPhoto\BO\MainPhotoController;
 use App\Http\Controllers\PriceList\BO\PriceListController;
+use App\Http\Controllers\Promotion\BO\PromotionController;
 use App\Http\Controllers\User\BO\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,13 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::apiResource('mainPhotos', MainPhotoController::class)->only(['index', 'store']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Promotions
+        |--------------------------------------------------------------------------
+        */
+        Route::apiResource('promotions', PromotionController::class)->only(['index', 'store', 'destroy']);
 
         /*
         |--------------------------------------------------------------------------
