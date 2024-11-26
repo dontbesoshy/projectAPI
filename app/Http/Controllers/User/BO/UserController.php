@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\BO;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\User\BO\CreateUserDto;
+use App\Http\Dto\User\BO\FavoritePartsDto;
 use App\Http\Dto\User\BO\NewLoginDto;
 use App\Http\Dto\User\BO\NewPasswordDto;
 use App\Models\User\User;
@@ -92,6 +93,32 @@ class UserController extends Controller
     public function clearCounterLogin(): JsonResponse
     {
         $this->userService->clearCounterLogin();
+        return $this->OK();
+    }
+
+    /**
+     * Get favorite parts.
+     *
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function getFavoriteParts(User $user): JsonResponse
+    {
+        return $this->OK($this->userService->getFavoriteParts($user));
+    }
+
+    /**
+     * Sync favorite parts.
+     *
+     * @param User $user
+     * @param FavoritePartsDto $request
+     *
+     * @return JsonResponse
+     */
+    public function syncFavoriteParts(User $user, FavoritePartsDto $request): JsonResponse
+    {
+        $this->userService->syncFavoriteParts($user, $request);
         return $this->OK();
     }
 }

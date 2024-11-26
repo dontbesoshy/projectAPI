@@ -4,9 +4,11 @@ namespace App\Services\User\BO;
 
 use App\Enums\User\UserTypeEnum;
 use App\Http\Dto\User\BO\CreateUserDto;
+use App\Http\Dto\User\BO\FavoritePartsDto;
 use App\Http\Dto\User\BO\NewLoginDto;
 use App\Http\Dto\User\BO\NewPasswordDto;
 use App\Models\User\User;
+use App\Resources\User\BO\PartCollection;
 use App\Resources\User\BO\UserCollection;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;
@@ -118,5 +120,36 @@ class UserService extends BasicService
         User::query()->update([
             'login_counter' => 0
         ]);
+    }
+
+    /**
+     * Get favorite parts.
+     *
+     * @param User $user
+     *
+     * @return PartCollection
+     */
+    public function getFavoriteParts(User $user): PartCollection
+    {
+        return new PartCollection($user->favoriteParts);
+    }
+
+    /**
+     * Sync favorite parts.
+     *
+     * @param User $user
+     * @param FavoritePartsDto $dto
+     *
+     * @return void
+     */
+    public function syncFavoriteParts(User $user, FavoritePartsDto $dto): void
+    {
+        $user->favoriteParts()->delete();
+
+        foreach ($dto->partIds as $favoritePart) {
+            $user->favoriteParts()->create([
+                'part_id' => $favoritePart,
+            ]);
+        }
     }
 }
