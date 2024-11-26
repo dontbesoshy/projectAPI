@@ -513,6 +513,57 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"client23@client.com\",\r\n    \"companyName\": \"DRUT SP. z o.o.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/bo/users/2",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
