@@ -3,6 +3,7 @@
 namespace App\Services\User\BO;
 
 use App\Enums\User\UserTypeEnum;
+use App\Http\Dto\User\BO\ClearLoginCounterDto;
 use App\Http\Dto\User\BO\CreateUserDto;
 use App\Http\Dto\User\BO\FavoritePartsDto;
 use App\Http\Dto\User\BO\NewLoginDto;
@@ -113,13 +114,21 @@ class UserService extends BasicService
     /**
      * Clear counter login.
      *
+     * @param ClearLoginCounterDto $dto
+     *
      * @return void
      */
-    public function clearCounterLogin(): void
+    public function clearCounterLogin(ClearLoginCounterDto $dto): void
     {
-        User::query()->update([
-            'login_counter' => 0
-        ]);
+        if ($dto->userId) {
+            User::query()->where('id', $dto->userId)->update([
+                'login_counter' => 0
+            ]);
+        } else {
+            User::query()->update([
+                'login_counter' => 0
+            ]);
+        }
     }
 
     /**

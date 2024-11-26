@@ -318,48 +318,6 @@
 							"response": []
 						},
 						{
-							"name": "Clear login counters",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{LOGIN_API_TOKEN}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{localhost}}/api/bo/users/clearCounterLogin",
-									"host": [
-										"{{localhost}}"
-									],
-									"path": [
-										"api",
-										"bo",
-										"users",
-										"clearCounterLogin"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Set new login",
 							"event": [
 								{
@@ -501,6 +459,56 @@
 										"users",
 										"2",
 										"syncFavoriteParts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clear login counters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/bo/users/clearCounterLogin",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"bo",
+										"users",
+										"clearCounterLogin"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "2",
+											"description": "OPTIONAL",
+											"disabled": true
+										}
 									]
 								}
 							},

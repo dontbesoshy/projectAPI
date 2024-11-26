@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\BO;
 
 use App\Http\Controllers\Controller;
+use App\Http\Dto\User\BO\ClearLoginCounterDto;
 use App\Http\Dto\User\BO\CreateUserDto;
 use App\Http\Dto\User\BO\FavoritePartsDto;
 use App\Http\Dto\User\BO\NewLoginDto;
@@ -88,11 +89,13 @@ class UserController extends Controller
     /**
      * Clear counter login.
      *
+     * @param ClearLoginCounterDto $request
+     *
      * @return JsonResponse
      */
-    public function clearCounterLogin(): JsonResponse
+    public function clearCounterLogin(ClearLoginCounterDto $request): JsonResponse
     {
-        $this->userService->clearCounterLogin();
+        $this->userService->clearCounterLogin($request);
         return $this->OK();
     }
 
