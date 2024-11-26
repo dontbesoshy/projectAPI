@@ -3,6 +3,7 @@
 namespace App\Services\User\BO;
 
 use App\Enums\User\UserTypeEnum;
+use App\Exceptions\User\UserAlreadyExistsInThisEmailException;
 use App\Http\Dto\User\BO\ClearLoginCounterDto;
 use App\Http\Dto\User\BO\CreateUserDto;
 use App\Http\Dto\User\BO\FavoritePartsDto;
@@ -78,6 +79,15 @@ class UserService extends BasicService
      */
     public function update(User $user, UpdateUserDto $dto): void
     {
+        $userExists = User::query()
+            ->where('id', '!=', $user->id)
+            ->where('email', $dto->email)
+            ->first();
+
+        if ($userExists) {
+            $this->throw(new UserAlreadyExistsInThisEmailException());
+        }
+
         $user->update([
             'email' => $dto->email,
             'company_name' => $dto->companyName,

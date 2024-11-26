@@ -20,6 +20,7 @@ class ErrorCodes
     public const USER_NOT_VERIFIED = 'usr-0003';
 
     public const USER_DOESNT_HAVE_PRICE_LIST = 'usr-0004';
+    public const USER_ALREADY_EXISTS_IN_THIS_EMAIL = 'usr-0006';
 
     /*
      * AUTH ERROR CODES

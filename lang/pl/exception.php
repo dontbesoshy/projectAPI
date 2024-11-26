@@ -11,4 +11,5 @@ return [
     'notFoundHttp' => 'Nie znaleziono strony',
     'modelNotFound' => 'Żądany model nie został znaleziony',
     'mainPhotoNotFound' => 'Nie znaleziono zdjęcia głównego',
+    'userAlreadyExistsInThisEmail' => 'User już istnieje z tym adresem email',
 ];
