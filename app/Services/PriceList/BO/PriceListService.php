@@ -9,7 +9,7 @@ use App\Models\Part;
 use App\Models\PriceList;
 use App\Models\User\User;
 use App\Resources\PriceList\BO\PriceListResource;
-use App\Resources\PriceList\BO\PriceListCollection;
+use App\Resources\PriceList\BO\PriceListShortCollection;
 use App\Services\BasicService;
 use Aspera\Spreadsheet\XLSX\Reader;
 use Illuminate\Support\Facades\DB;
@@ -20,13 +20,13 @@ class PriceListService extends BasicService
     /**
      * Return all price lists.
      *
-     * @return PriceListCollection
+     * @return PriceListShortCollection
      */
-    public function index(): PriceListCollection
+    public function index(): PriceListShortCollection
     {
         $queryBuilder = PriceList::query()->get();
 
-        return new PriceListCollection($queryBuilder);
+        return new PriceListShortCollection($queryBuilder);
     }
 
     /**
