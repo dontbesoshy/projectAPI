@@ -8,6 +8,7 @@ use App\Http\Dto\User\BO\CreateUserDto;
 use App\Http\Dto\User\BO\FavoritePartsDto;
 use App\Http\Dto\User\BO\NewLoginDto;
 use App\Http\Dto\User\BO\NewPasswordDto;
+use App\Http\Dto\User\BO\UpdateUserDto;
 use App\Models\User\User;
 use App\Resources\User\BO\PartCollection;
 use App\Resources\User\BO\UserCollection;
@@ -65,6 +66,22 @@ class UserService extends BasicService
         }
 
         return $token;
+    }
+
+    /**
+     * Update user.
+     *
+     * @param User $user
+     * @param UpdateUserDto $dto
+     *
+     * @return void
+     */
+    public function update(User $user, UpdateUserDto $dto): void
+    {
+        $user->update([
+            'email' => $dto->email,
+            'company_name' => $dto->companyName,
+        ]);
     }
 
     /**
