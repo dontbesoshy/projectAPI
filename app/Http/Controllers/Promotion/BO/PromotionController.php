@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Promotion\BO;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\File\UploadedFileDto;
-use App\Models\Promotion;
+use App\Http\Dto\Promotion\UpdatePromotionStatusDto;
+use App\Models\Promotion\Promotion;
 use App\Services\Promotions\BO\PromotionsService;
 use Illuminate\Http\JsonResponse;
 
@@ -52,6 +53,19 @@ class PromotionController extends Controller
     public function destroy(Promotion $promotion): JsonResponse
     {
         $this->promotionsService->delete($promotion);
+        return $this->OK();
+    }
+
+    /**
+     * Update status of promotion.
+     *
+     * @param UpdatePromotionStatusDto $request
+     *
+     * @return JsonResponse
+     */
+    public function updateStatus(UpdatePromotionStatusDto $request)
+    {
+        $this->promotionsService->updateStatus($request);
         return $this->OK();
     }
 }

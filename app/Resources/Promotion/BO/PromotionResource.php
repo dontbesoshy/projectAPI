@@ -17,6 +17,7 @@ class PromotionResource extends BasicResource
             'id' => $this->id,
             'name' => $this->name,
             'url' => $this->url,
+            'active' => $this->active,
         ];
     }
 }

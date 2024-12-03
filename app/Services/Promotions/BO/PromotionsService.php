@@ -3,8 +3,8 @@
 namespace App\Services\Promotions\BO;
 
 use App\Http\Dto\File\UploadedFileDto;
-use App\Models\MainPhoto;
-use App\Models\Promotion;
+use App\Http\Dto\Promotion\UpdatePromotionStatusDto;
+use App\Models\Promotion\Promotion;
 use App\Resources\Promotion\BO\PromotionCollection;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;
@@ -63,5 +63,19 @@ class PromotionsService extends BasicService
     public function delete(Promotion $promotion): void
     {
         $promotion->delete();
+    }
+
+    /**
+     * Update status of promotion.
+     *
+     * @param UpdatePromotionStatusDto $dto
+     *
+     * @return void
+     */
+    public function updateStatus(UpdatePromotionStatusDto $dto): void
+    {
+        Promotion::query()
+            ->whereIn('id', $dto->promotionIds)
+            ->update(['active' => $dto->active]);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Promotion;
 
+use App\Models\Promotion\Enums\PromotionStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,5 +13,10 @@ class Promotion extends Model
     protected $fillable = [
         'name',
         'url',
+        'active',
+    ];
+
+    protected $casts = [
+        'active' => PromotionStatusEnum::class,
     ];
 }

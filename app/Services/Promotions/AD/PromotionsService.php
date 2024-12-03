@@ -2,7 +2,7 @@
 
 namespace App\Services\Promotions\AD;
 
-use App\Models\Promotion;
+use App\Models\Promotion\Promotion;
 use App\Resources\Promotion\AD\PromotionCollection;
 use App\Services\BasicService;
 

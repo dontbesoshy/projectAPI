@@ -49,6 +49,7 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::apiResource('promotions', PromotionController::class)->only(['index', 'store', 'destroy']);
+        Route::post('promotions/updateStatus', [PromotionController::class, 'updateStatus']);
 
         /*
         |--------------------------------------------------------------------------
