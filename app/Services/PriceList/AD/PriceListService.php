@@ -20,6 +20,10 @@ class PriceListService extends BasicService
     {
         $priceList = $user->priceLists()->with('parts.image')->first();
 
+        if (!$priceList) {
+            return null;
+        }
+
         $uniqueParts = $priceList->parts;
         $priceList->setRelation('parts', $uniqueParts);
 
