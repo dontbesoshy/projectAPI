@@ -80,6 +80,8 @@ class OrderService extends BasicService
             ->each(function (Email $email) use ($dto) {
                 $email->notify(new SendOrderNotification($dto));
             });
+
+        $user->cart()->delete();
     }
 
     public function generatePdf(OrderDto $dto)
