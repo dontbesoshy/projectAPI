@@ -56,6 +56,7 @@ Route::group(
         |--------------------------------------------------------------------------
         */
         Route::apiResource('news', NewsController::class)->only(['index', 'store', 'destroy']);
+        Route::post('news/updateStatus', [NewsController::class, 'updateStatus']);
 
         /*
         |--------------------------------------------------------------------------

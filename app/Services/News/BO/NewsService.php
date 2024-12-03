@@ -3,7 +3,8 @@
 namespace App\Services\News\BO;
 
 use App\Http\Dto\File\UploadedFileDto;
-use App\Models\News;
+use App\Http\Dto\News\UpdateNewsStatusDto;
+use App\Models\News\News;
 use App\Resources\News\BO\NewsCollection;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\DB;
@@ -62,5 +63,19 @@ class NewsService extends BasicService
     public function delete(News $promotion): void
     {
         $promotion->delete();
+    }
+
+    /**
+     * Update status of news.
+     *
+     * @param UpdateNewsStatusDto $dto
+     *
+     * @return void
+     */
+    public function updateStatus(UpdateNewsStatusDto $dto): void
+    {
+        News::query()
+            ->whereIn('id', $dto->newsIds)
+            ->update(['active' => $dto->active]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services\News\AD;
 
-use App\Models\News;
+use App\Models\News\News;
 use App\Resources\News\AD\NewsCollection;
 use App\Services\BasicService;
 
