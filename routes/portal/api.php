@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Config\PO\ConfigController;
 use App\Http\Controllers\MainPhoto\PO\MainPhotoController;
 use App\Http\Controllers\User\UserAccountController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,10 @@ Route::post('forgotPassword', [UserAccountController::class, 'forgotPassword'])-
 |--------------------------------------------------------------------------
 */
 Route::apiResource('mainPhotos', MainPhotoController::class)->only(['index']);
+
+/*
+|--------------------------------------------------------------------------
+| Config
+|--------------------------------------------------------------------------
+*/
+Route::apiResource('configs', ConfigController::class)->only(['index']);
