@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Dto\CatalogImage\CatalogImageDto;
 use App\Http\Dto\CatalogImage\FilesDto;
 use App\Http\Dto\Config\CreateConfigDto;
+use App\Models\Config\Config;
 use App\Services\CatalogImage\BO\CatalogImageService;
 use App\Services\Config\BO\ConfigService;
 use Illuminate\Http\JsonResponse;
@@ -44,15 +45,15 @@ class ConfigController extends Controller
     }
 
     /**
-     * Delete image.
+     * Delete config.
      *
-     * @param CatalogImageDto $catalogImageIds
+     * @param Config $config
      *
      * @return JsonResponse
      */
-    public function destroy(CatalogImageDto $catalogImageIds): JsonResponse
+    public function destroy(Config $config): JsonResponse
     {
-        $this->configService->destroy($catalogImageIds);
+        $this->configService->destroy($config);
         return $this->OK();
     }
 }

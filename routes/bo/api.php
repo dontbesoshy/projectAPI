@@ -49,7 +49,7 @@ Route::group(
         | Config
         |--------------------------------------------------------------------------
         */
-        Route::apiResource('configs', ConfigController::class)->only(['index', 'store']);
+        Route::apiResource('configs', ConfigController::class)->only(['index', 'store', 'destroy']);
 
         /*
         |--------------------------------------------------------------------------

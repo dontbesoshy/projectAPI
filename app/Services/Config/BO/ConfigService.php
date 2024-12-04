@@ -50,19 +50,14 @@ class ConfigService extends BasicService
     }
 
     /**
-     * Delete catalog images.
+     * Delete config.
      *
-     * @param CatalogImageDto $dto
+     * @param Config $config
      *
      * @return void
      */
-    public function destroy(CatalogImageDto $dto): void
+    public function destroy(Config $config): void
     {
-        CatalogImage::query()
-            ->whereIn('id', $dto->catalogImageIds)
-            ->each(function ($catalogImage) {
-                Storage::disk('public')->delete($catalogImage->url);
-                $catalogImage->delete();
-            });
+        $config->delete();
     }
 }
