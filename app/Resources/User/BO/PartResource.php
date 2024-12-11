@@ -15,10 +15,10 @@ class PartResource extends BasicResource
     {
         return [
             'id' => $this->id,
-            'ean' => $this->ean,
-            'name' => $this->name,
-            'code' => $this->code,
-            'price' => $this->price,
+            'ean' => $this->part->ean,
+            'name' => $this->part->name,
+            'code' => $this->part->code,
+            'price' => $this->part->price,
         ];
     }
 }
