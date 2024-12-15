@@ -7,6 +7,7 @@ use App\Http\Dto\User\AD\NewPasswordDto;
 use App\Models\User\User;
 use App\Resources\User\AD\PartCollection;
 use App\Services\BasicService;
+use Illuminate\Support\Facades\DB;
 
 class UserService extends BasicService
 {
@@ -35,12 +36,19 @@ class UserService extends BasicService
      */
     public function syncFavoriteParts(User $user, FavoritePartsDto $dto): void
     {
-        $user->favoriteParts()->delete();
+        DB::beginTransaction();
+        try {
+            $user->favoriteParts()->delete();
 
-        foreach ($dto->partIds as $favoritePart) {
-            $user->favoriteParts()->create([
-                'part_id' => $favoritePart,
-            ]);
+            foreach ($dto->partIds as $favoritePart) {
+                $user->favoriteParts()->create([
+                    'part_id' => $favoritePart,
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            $this->rollBackThrow($th);
         }
     }
 

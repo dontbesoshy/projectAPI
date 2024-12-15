@@ -14,7 +14,7 @@ class PartResource extends BasicResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->part->id,
             'ean' => $this->part->ean,
             'name' => $this->part->name,
             'code' => $this->part->code,
