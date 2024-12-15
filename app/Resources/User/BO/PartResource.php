@@ -19,6 +19,7 @@ class PartResource extends BasicResource
             'name' => $this->part->name,
             'code' => $this->part->code,
             'price' => $this->part->price,
+            'image' => $this->part?->image,
         ];
     }
 }
