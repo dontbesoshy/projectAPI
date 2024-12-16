@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\User\User;
 use App\Resources\Cart\AD\CartCollection;
 use App\Services\BasicService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class CartService extends BasicService
@@ -36,35 +37,41 @@ class CartService extends BasicService
      */
     public function store(CreateCartDto $dto): void
     {
-        DB::beginTransaction();
 
-        try {
-            $user = User::find($dto->userId);
+        Cache::lock(
+            'storeCart' . $dto->userId,
+            30
+        )->block(10, function () use ($dto) {
+            DB::beginTransaction();
 
-            $items = $dto->items;
+            try {
+                $user = User::find($dto->userId);
 
-            if ($user->cart === null) {
-                $user->cart()->create();
+                $items = $dto->items;
+
+                if ($user->cart === null) {
+                    $user->cart()->create();
+                }
+
+                $cart = $user->cart()->first();
+
+                CartItem::query()->where('cart_id', $cart->id)->delete();
+
+                foreach ($items as $item) {
+                    $cart->cartItems()->create([
+                        'code' => $item->code,
+                        'quantity' => $item->quantity,
+                        'ean' => $item->ean,
+                        'name' => $item->name,
+                        'price' => $item->price,
+                        'part_id' => $item->partId,
+                    ]);
+                }
+
+                DB::commit();
+            } catch (\Throwable $e) {
+                $this->rollBackThrow($e);
             }
-
-            $cart = $user->cart()->first();
-
-            CartItem::query()->where('cart_id', $cart->id)->delete();
-
-            foreach ($items as $item) {
-                $cart->cartItems()->create([
-                    'code' => $item->code,
-                    'quantity' => $item->quantity,
-                    'ean' => $item->ean,
-                    'name' => $item->name,
-                    'price' => $item->price,
-                    'part_id' => $item->partId,
-                ]);
-            }
-
-            DB::commit();
-        } catch (\Throwable $e) {
-            $this->rollBackThrow($e);
-        }
+        });
     }
 }
