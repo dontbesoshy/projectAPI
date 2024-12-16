@@ -8,4 +8,6 @@ class UpdateUserDto extends BasicDto
 {
     public string $email;
     public string $companyName;
+
+    public string $login;
 }

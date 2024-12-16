@@ -25,4 +25,14 @@ class PriceList extends Model
     {
         return $this->hasMany(Part::class);
     }
+
+    /**
+     * Price list has many parts with trashed.
+     *
+     * @return HasMany
+     */
+    public function partsWithTrashed(): HasMany
+    {
+        return $this->hasMany(Part::class)->withTrashed();
+    }
 }

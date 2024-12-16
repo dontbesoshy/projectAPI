@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('part_id')->constrained();
-            $table->string('part_code')->nullable();
+            $table->string('ean')->index();
             $table->string('url');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

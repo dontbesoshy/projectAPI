@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Part extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'price_list_id',
@@ -31,12 +30,12 @@ class Part extends Model
     }
 
     /**
-     * Part has one image.
+     * Part belongs to image.
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function image(): HasOne
+    public function image(): BelongsTo
     {
-        return $this->hasOne(Image::class);
+        return $this->belongsTo(Image::class, 'ean', 'ean')->latest()->withTrashed();
     }
 }

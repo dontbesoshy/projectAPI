@@ -62,7 +62,7 @@ class PriceListService extends BasicService
 
             $reader->open(Storage::disk('local')->path($fileName));
 
-            $parts = collect($reader)
+            $partsFromExcel = collect($reader)
                 ->mapWithKeys(fn ($row, $key) => [$key => [
                     'ean' => str_replace(' ', '', $row[0]),
                     'name' => $row[1],
@@ -71,28 +71,109 @@ class PriceListService extends BasicService
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]])
-                ->filter(fn ($part) => $part['ean'] !== null && $part['name'] !== '' && $part['code'] !== '' && $part['price'] !== '');
+                ->filter(
+                    fn ($part) =>
+                        $part['ean'] !== null
+                        && $part['ean'] !== ''
+                        && $part['name'] !== null
+                        && $part['name'] !== ''
+                        && $part['code'] !== null
+                        && $part['code'] !== ''
+                        && $part['price'] !== ''
+                );
 
-            $priceList = PriceList::where('name', $fileName)->first();
+            $existingPriceList = PriceList::where('name', $fileName)->with('parts')->first();
 
-            if ($priceList) {
-                Image::query()->whereIn('part_id', $priceList->parts->pluck('id'))->delete();
-                $priceList->parts()->delete();
-                $priceList->update(['active' => true]);
+            if ($existingPriceList) {
+                $existingParts = $existingPriceList->parts()->get()->keyBy('ean');
+
+                $excelParts = $partsFromExcel->keyBy('ean');
+
+                $partsToUpdate = [];
+                $partsToCreate = [];
+                $partsToDelete = $existingParts->keys()->diff($excelParts->keys());
+
+                foreach ($excelParts as $ean => $excelPart) {
+                    if (isset($existingParts[$ean])) {
+                        $existingPart = $existingParts[$ean];
+                        if ($existingPart->price != $excelPart['price']) {
+                            $partsToUpdate[] = [
+                                'id' => $existingPart->id,
+                                'price' => $excelPart['price'],
+                            ];
+                        }
+                    } else {
+                        $partsToCreate[] = [
+                            'price_list_id' => $existingPriceList->id,
+                            'ean' => $ean,
+                            'name' => $excelPart['name'],
+                            'code' => $excelPart['code'],
+                            'price' => $excelPart['price'],
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                }
+
+                if (!empty($partsToUpdate)) {
+                    foreach ($partsToUpdate as $updateData) {
+                        DB::table('parts')
+                            ->where('id', $updateData['id'])
+                            ->update(['price' => $updateData['price']]);
+                    }
+                }
+
+                if (!$partsToDelete->isEmpty()) {
+                    foreach ($partsToDelete as $partToDelete) {
+                        $image = Image::query()->where('ean', $partToDelete)->first();
+
+                        if ($image->parts()->count() === 1) {
+                            $image->delete();
+                        }
+
+                        $existingPriceList->parts()->where('ean', $partToDelete)->delete();
+                    }
+                }
+
+                if (!empty($partsToCreate)) {
+                    foreach ($partsToCreate as $createData) {
+                        $imageExists = Image::query()->where('ean', $createData['ean'])->first();
+
+                        if (!$imageExists) {
+                            DB::table('images')->insert([
+                                'ean' => $createData['ean'],
+                                'url' => $createData['ean'].'.jpg',
+                                'name' => $createData['ean'].'.jpg',
+                            ]);
+                        }
+                    }
+
+                    DB::table('parts')->insert($partsToCreate);
+                }
             } else {
                 $priceList = PriceList::create(['name' => $fileName, 'active' => true]);
+
+                $existingEan = Image::query()
+                    ->whereIn('ean', $partsFromExcel->pluck('ean'))
+                    ->pluck('ean')
+                    ->toArray();
+
+                $imagesToCreate = $partsFromExcel->filter(function ($part) use ($existingEan) {
+                    return !in_array($part['ean'], $existingEan);
+                })->map(function ($part) {
+                    return [
+                        'url' => $part['ean'] . '.jpg',
+                        'name' => $part['ean'] . '.jpg',
+                        'ean' => $part['ean'],
+                    ];
+                });
+
+                if ($imagesToCreate->isNotEmpty()) {
+                    Image::query()->insert($imagesToCreate->toArray());
+                }
+
+                $priceList->parts()->createMany($partsFromExcel->toArray());
             }
-            $priceList->parts()->createMany($parts->toArray());
-
-            $priceList->parts()->each(function (Part $part) {
-                $part->image()->create([
-                    'part_code' => $part->code,
-                    'url' => $part->code.'.jpg',
-                    'name' => $part->code.'.jpg',
-                ]);
-            });
-
-            $priceList->touch();
 
             DB::commit();
         } catch (\Throwable $e) {

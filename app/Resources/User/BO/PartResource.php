@@ -14,12 +14,12 @@ class PartResource extends BasicResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->part->id,
-            'ean' => $this->part->ean,
-            'name' => $this->part->name,
-            'code' => $this->part->code,
-            'price' => $this->part->price,
-            'image' => $this->part?->image,
+            'id' => $this->id,
+            'ean' => $this->ean,
+            'name' => $this->name,
+            'code' => $this->code,
+            'price' => $this->price,
+            'image' => $this->image,
         ];
     }
 }

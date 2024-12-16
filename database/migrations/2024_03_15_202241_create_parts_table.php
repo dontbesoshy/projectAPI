@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('code')->index()->nullable();
             $table->decimal('price', 12, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('ean')->references('ean')->on('images')->onDelete('cascade');
         });
     }
 

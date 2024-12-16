@@ -91,6 +91,7 @@ class UserService extends BasicService
         $user->update([
             'email' => $dto->email,
             'company_name' => $dto->companyName,
+            'login' => $dto->login,
         ]);
     }
 
@@ -167,7 +168,18 @@ class UserService extends BasicService
      */
     public function getFavoriteParts(User $user): PartCollection
     {
-        return new PartCollection($user->favoriteParts);
+        $parts = $user
+            ->priceLists
+            ->first()
+            ->partsWithTrashed
+            ->filter(fn($part) => in_array($part->ean, $user->favoriteParts->pluck('ean')->toArray()))
+            ->groupBy('ean')
+            ->map(function ($groupedParts) {
+                return $groupedParts->first(fn($part) => !$part->trashed()) ?? $groupedParts->first();
+            })
+            ->values();
+
+        return new PartCollection($parts);
     }
 
     /**
@@ -182,9 +194,9 @@ class UserService extends BasicService
     {
         $user->favoriteParts()->delete();
 
-        foreach ($dto->partIds as $favoritePart) {
+        foreach ($dto->partEans as $partEan) {
             $user->favoriteParts()->create([
-                'part_id' => $favoritePart,
+                'ean' => $partEan,
             ]);
         }
     }

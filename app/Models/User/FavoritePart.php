@@ -2,18 +2,18 @@
 
 namespace App\Models\User;
 
-use App\Models\Part;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FavoritePart extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
-        'part_id'
+        'ean'
     ];
 
     /**
@@ -24,15 +24,5 @@ class FavoritePart extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Favorite part belongs to part.
-     *
-     * @return BelongsTo
-     */
-    public function part(): BelongsTo
-    {
-        return $this->belongsTo(Part::class);
     }
 }
