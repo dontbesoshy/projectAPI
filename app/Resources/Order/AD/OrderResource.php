@@ -17,6 +17,7 @@ class OrderResource extends BasicResource
             'id' => $this->id,
             'comment' => $this->comment,
             'createdAt' => $this->created_at,
+            'url' => $this->url,
         ];
     }
 }
