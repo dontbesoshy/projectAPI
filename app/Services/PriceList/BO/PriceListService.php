@@ -228,13 +228,15 @@ class PriceListService extends BasicService
      */
     public function delete(PriceList $priceList): void
     {
-        Image::query()->whereIn('part_id', $priceList->parts->pluck('id'))->delete();
-
         $priceList->parts()->delete();
 
         DB::table('price_list_user')
             ->where('price_list_id', $priceList->id)
             ->delete();
+
+        $priceList->users()->each(function (User $user) {
+            $user->cart->delete();
+        });
 
         $priceList->delete();
     }

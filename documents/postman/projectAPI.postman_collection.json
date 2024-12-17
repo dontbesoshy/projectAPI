@@ -1155,7 +1155,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"imageIds\": [11,12,13]\r\n}",
+									"raw": "{\r\n    \"imageEans\": [456456456456]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

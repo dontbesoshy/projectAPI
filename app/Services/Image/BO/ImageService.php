@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\Part;
 use App\Resources\Image\BO\ImageCollection;
 use App\Services\BasicService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ImageService extends BasicService
@@ -33,32 +34,29 @@ class ImageService extends BasicService
      */
     public function store(FilesDto $dto): void
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
 
         try {
             foreach ($dto->images as $image) {
                 $fileName = $image->getClientOriginalName();
 
                 $code = explode('.', $fileName);
-                $ext = array_pop($code);
-                $code = implode('.',$code);
+                $code = implode('.', $code);
 
-                Part::query()
-                    ->where('code', $code)
-                    ->each(function ($part) use ($fileName, $code) {
-                        $part->image()->delete();
+                $partExists = Part::query()->where('code', $code)->first();
 
-                        $part->image()->create([
-                            'part_code' => $code,
-                            'url' => $fileName,
-                            'name' => $fileName,
-                        ]);
-                    });
+                if ($partExists) {
+                    Image::query()->create([
+                        'ean' => $partExists->ean,
+                        'url' => $fileName,
+                        'name' => $fileName,
+                    ]);
+                }
 
                 Storage::disk('public')->put('parts/'.$fileName, file_get_contents($image));
             }
 
-            \DB::commit();
+            DB::commit();
         } catch (\Throwable $e) {
             $this->rollBackThrow($e);
         }
@@ -74,7 +72,7 @@ class ImageService extends BasicService
     public function destroy(ImageDto $dto): void
     {
         Image::query()
-            ->whereIn('id', $dto->imageIds)
+            ->whereIn('ean', $dto->imageEans)
             ->each(function ($image) {
                 Storage::disk('public')->delete($image->url);
                 $image->delete();
