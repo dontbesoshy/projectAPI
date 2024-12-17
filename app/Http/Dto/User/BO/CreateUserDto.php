@@ -14,5 +14,6 @@ class CreateUserDto extends BasicDto
 
     public string $companyName;
 
+    #[Unique('users', 'login')]
     public string $login;
 }
