@@ -23,7 +23,7 @@ Route::group(
         Route::get('priceList', [\App\Http\Controllers\PriceList\AD\PriceListController::class, 'show']);
         Route::post('makeOrder', [\App\Http\Controllers\Order\AD\OrderController::class, 'store']);
         Route::post('generatePdf', [\App\Http\Controllers\Order\AD\OrderController::class, 'generatePdf']);
-        Route::get('orders', [\App\Http\Controllers\Order\AD\OrderController::class, 'index']);
+        Route::post('orders', [\App\Http\Controllers\Order\AD\OrderController::class, 'index']);
         Route::get('orders/{order}', [\App\Http\Controllers\Order\AD\OrderController::class, 'show']);
         Route::post('users/{user}', [\App\Http\Controllers\User\AD\UserController::class, 'setNewPassword']);
         Route::get('users/{user}/getFavoriteParts', [\App\Http\Controllers\User\AD\UserController::class, 'getFavoriteParts']);

@@ -16,6 +16,7 @@ class OrderResource extends BasicResource
         return [
             'id' => $this->id,
             'comment' => $this->comment,
+            'createdAt' => $this->created_at,
         ];
     }
 }
