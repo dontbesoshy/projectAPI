@@ -132,6 +132,12 @@ class PriceListService extends BasicService
                         }
 
                         $existingPriceList->parts()->where('ean', $partToDelete)->delete();
+
+                        foreach ($existingPriceList->users as $user) {
+                            if ($user->cart) {
+                                $user->cart->cartItems()->where('ean', $partToDelete)->delete();
+                            }
+                        }
                     }
                 }
 

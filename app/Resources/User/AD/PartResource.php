@@ -20,6 +20,7 @@ class PartResource extends BasicResource
             'code' => $this->code,
             'price' => $this->price,
             'image' => $this?->image,
+            'isActive' => $this->deleted_at === null
         ];
     }
 }
