@@ -66,7 +66,7 @@ class OrderController extends Controller
      *
      * @return string
      */
-    public function show(Order $order, ShowOrderDto $request): string
+    public function show(Order $order, ShowOrderDto $request)
     {
         return $this->orderService->show($order, $request);
     }

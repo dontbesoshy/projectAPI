@@ -37,14 +37,25 @@ class OrderService extends BasicService
      *
      * @return string
      */
-    public function show(Order $order, ShowOrderDto $dto): string
+    public function show(Order $order, ShowOrderDto $dto)
     {
         $this->throwIf(
             $order->user_id !== $dto->userId,
             ModelNotFoundException::class
         );
 
-        return Storage::disk('local')->get($order->url);
+        if (!Storage::disk('local')->exists($order->url)) {
+            abort(404, 'File not found');
+        }
+
+        return response()->stream(function () use ($order) {
+            $stream = Storage::disk('local')->readStream($order->url);
+            fpassthru($stream);
+            fclose($stream);
+        }, 200, [
+            'Content-Type' => Storage::disk('local')->mimeType($order->url),
+            'Content-Disposition' => 'inline; filename="' . basename($order->url) . '"',
+        ]);
     }
 
     /**
