@@ -20,6 +20,7 @@ class CartResource extends BasicResource
             'name' => $this->name,
             'price' => $this->price,
             'quantity' => $this->quantity,
+            'isActive' => $this->part !== null
         ];
     }
 }
