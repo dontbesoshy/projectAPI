@@ -11,5 +11,5 @@ return [
     'notFoundHttp' => 'Page not found',
     'modelNotFound' => 'The requested model was not found',
     'mainPhotoNotFound' => 'Main photo not found',
-    'userAlreadyExistsInThisEmail' => 'User already exists with this email address',
+    'userAlreadyExistsInThisEmail' => 'User already exists with this email address or login',
 ];
