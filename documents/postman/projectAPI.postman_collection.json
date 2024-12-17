@@ -1948,6 +1948,101 @@
 					"name": "Order",
 					"item": [
 						{
+							"name": "Show orders",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/ad/orders",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"ad",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{LOGIN_API_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localhost}}/api/ad/orders/1",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"ad",
+										"orders",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Make order",
 							"event": [
 								{
@@ -1976,7 +2071,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"userId\": 1,\r\n    \"comment\": \"weź mi to spakuj do paczki i wyślij DHLemasdasdasdasdasdasdasdasda\",\r\n    \"orderItems\": [\r\n        {\r\n            \"ean\": \"123\",\r\n            \"name\": \"sialala\",\r\n            \"code\": \"123312-12\",\r\n            \"price\": \"120\",\r\n            \"pieces\": \"10\"\r\n        },\r\n        {\r\n            \"ean\": \"312323123\",\r\n            \"name\": \"adffdsfdfgdfg\",\r\n            \"code\": \"1-12\",\r\n            \"price\": \"333\",\r\n            \"pieces\": \"22\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"userId\": 2,\r\n    \"comment\": \"weź mi to spakuj do paczki i wyślij DHLemasdasdasdasdasdasdasdasda\",\r\n    \"orderItems\": [\r\n        {\r\n            \"ean\": \"123\",\r\n            \"name\": \"sialala\",\r\n            \"code\": \"123312-12\",\r\n            \"price\": \"120\",\r\n            \"pieces\": \"10\"\r\n        },\r\n        {\r\n            \"ean\": \"312323123\",\r\n            \"name\": \"adffdsfdfgdfg\",\r\n            \"code\": \"1-12\",\r\n            \"price\": \"333\",\r\n            \"pieces\": \"22\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

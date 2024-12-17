@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use App\Enums\User\UserTypeEnum;
 use App\Models\Cart;
+use App\Models\Order\Order;
 use App\Models\PriceList;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -104,5 +105,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function favoriteParts(): HasMany
     {
        return $this->hasMany(FavoritePart::class);
+    }
+
+    /**
+     * User has many orders.
+     *
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

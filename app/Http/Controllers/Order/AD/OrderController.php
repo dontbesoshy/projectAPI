@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Order\AD;
 
 use App\Http\Controllers\Controller;
 use App\Http\Dto\Order\OrderDto;
+use App\Http\Dto\Order\ShowOrderDto;
+use App\Models\Order\Order;
 use App\Services\Order\OrderService;
 use Illuminate\Http\JsonResponse;
 
@@ -16,6 +18,18 @@ class OrderController extends Controller
      */
     public function __construct(private readonly OrderService $orderService)
     {
+    }
+
+    /**
+     * Return all orders.
+     *
+     * @param ShowOrderDto $request
+     *
+     * @return JsonResponse
+     */
+    public function index(ShowOrderDto $request)
+    {
+        return $this->OK($this->orderService->index($request));
     }
 
     /**
@@ -42,5 +56,10 @@ class OrderController extends Controller
     public function generatePdf(OrderDto $request)
     {
         return $this->orderService->generatePdf($request);
+    }
+
+    public function show(Order $order)
+    {
+        return $this->orderService->show($order);
     }
 }

@@ -61,6 +61,10 @@ class UserService extends BasicService
      */
     public function getFavoriteParts(User $user): PartCollection
     {
+        if ($user->priceLists->isEmpty()) {
+            return new PartCollection([]);
+        }
+
         $parts = $user
             ->priceLists
             ->first()

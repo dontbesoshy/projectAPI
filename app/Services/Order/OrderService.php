@@ -3,14 +3,43 @@
 namespace App\Services\Order;
 
 use App\Http\Dto\Order\OrderDto;
+use App\Http\Dto\Order\ShowOrderDto;
 use App\Models\Email;
+use App\Models\Order\Order;
 use App\Models\User\User;
 use App\Notifications\User\BO\SendOrderNotification;
+use App\Resources\Order\AD\OrderCollection;
 use App\Services\BasicService;
 use Illuminate\Support\Facades\Storage;
 
 class OrderService extends BasicService
 {
+    /**
+     * Return all orders.
+     *
+     * @param ShowOrderDto $dto
+     *
+     * @return OrderCollection
+     */
+    public function index(ShowOrderDto $dto): OrderCollection
+    {
+        $user = User::find($dto->userId);
+
+        return new OrderCollection($user->orders);
+    }
+
+    /**
+     * Show order.
+     *
+     * @param Order $order
+     *
+     * @return string
+     */
+    public function show(Order $order)
+    {
+        return Storage::disk('local')->get($order->url);
+    }
+
     /**
      * Send order.
      *
@@ -21,6 +50,11 @@ class OrderService extends BasicService
     public function store(OrderDto $dto)
     {
         $user = User::find($dto->userId);
+
+        if ($user->cart === null) {
+            return;
+        }
+
         $pdf = \App::make('dompdf.wrapper');
         $table = '<table style="width: 100%;border-collapse: collapse;font-family: Arial-Narrow;margin: 20px 0;">
                 <tr>
@@ -66,15 +100,16 @@ class OrderService extends BasicService
 </div>
 ');
 
-
-
         Storage::disk('local')->put(
             'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H').'.pdf', $pdf->stream()
         );
 
-        //$allPdfs = Storage::disk('public')->allFiles('orders');
-
-       // $pfd = Storage::get($allPdfs[0]);
+        $order = Order::create([
+            'user_id' => $user->id,
+            'cart_id' => $user->cart->id,
+            'comment' => $dto->comment,
+            'url' => 'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H').'.pdf'
+        ]);
 
         Email::query()
             ->each(function (Email $email) use ($dto) {

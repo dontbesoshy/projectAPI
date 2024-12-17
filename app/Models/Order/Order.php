@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Order;
 
+use App\Models\Cart;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cart extends Model
+class Order extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'user_id',
+        'cart_id',
+        'comment',
+        'url',
     ];
 
     /**
@@ -27,12 +34,12 @@ class Cart extends Model
     }
 
     /**
-     * Cart has many cart items.
+     * Order has one cart.
      *
-     * @return HasMany
+     * @return HasOne
      */
-    public function cartItems(): HasMany
+    public function cart(): HasOne
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasOne(Cart::class)->withTrashed();
     }
 }
