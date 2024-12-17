@@ -81,7 +81,10 @@ class UserService extends BasicService
     {
         $userExists = User::query()
             ->where('id', '!=', $user->id)
-            ->where('email', $dto->email)
+            ->where(function ($query) use ($dto) {
+                $query->where('email', $dto->email)
+                    ->orWhere('login', $dto->login);
+            })
             ->first();
 
         if ($userExists) {
