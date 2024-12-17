@@ -16,6 +16,7 @@ class ImageResource extends BasicResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'updatedAt' => $this->updated_at,
         ];
     }
 }
