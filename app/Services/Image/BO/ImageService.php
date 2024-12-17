@@ -45,15 +45,18 @@ class ImageService extends BasicService
 
                 $partExists = Part::query()->where('code', $code)->first();
 
-                if ($partExists) {
+                if (!$partExists) {
                     Image::query()->create([
                         'ean' => $partExists->ean,
                         'url' => $fileName,
                         'name' => $fileName,
                     ]);
+
+                    Storage::disk('public')->put('parts/'.$fileName, file_get_contents($image));
+                } else {
+                    $partExists->image()->touch();
                 }
 
-                Storage::disk('public')->put('parts/'.$fileName, file_get_contents($image));
             }
 
             DB::commit();
