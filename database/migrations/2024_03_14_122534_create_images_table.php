@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('ean')->index();
             $table->string('url');
             $table->string('name');
+            $table->string('part_code');
             $table->timestamps();
             $table->softDeletes();
         });

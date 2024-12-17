@@ -119,7 +119,10 @@ class PriceListService extends BasicService
                     foreach ($partsToUpdate as $updateData) {
                         DB::table('parts')
                             ->where('id', $updateData['id'])
-                            ->update(['price' => $updateData['price']]);
+                            ->update([
+                                'price' => $updateData['price'],
+                                'updated_at' => now(),
+                            ]);
                     }
                 }
 
@@ -150,6 +153,8 @@ class PriceListService extends BasicService
                                 'ean' => $createData['ean'],
                                 'url' => $createData['ean'].'.jpg',
                                 'name' => $createData['ean'].'.jpg',
+                                'updated_at' => now(),
+                                'created_at' => now(),
                             ]);
                         }
                     }
@@ -168,9 +173,12 @@ class PriceListService extends BasicService
                     return !in_array($part['ean'], $existingEan);
                 })->map(function ($part) {
                     return [
-                        'url' => $part['ean'] . '.jpg',
-                        'name' => $part['ean'] . '.jpg',
+                        'url' => $part['code'] . '.jpg',
+                        'name' => $part['code'] . '.jpg',
                         'ean' => $part['ean'],
+                        'part_code' => $part['code'],
+                        'updated_at' => now(),
+                        'created_at' => now(),
                     ];
                 });
 

@@ -17,6 +17,7 @@ class Image extends Model
         'ean',
         'url',
         'name',
+        'part_code'
     ];
 
     /**

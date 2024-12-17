@@ -41,22 +41,25 @@ class ImageService extends BasicService
                 $fileName = $image->getClientOriginalName();
 
                 $code = explode('.', $fileName);
+                $ext = array_pop($code);
                 $code = implode('.', $code);
 
                 $partExists = Part::query()->where('code', $code)->first();
-
-                if (!$partExists) {
-                    Image::query()->create([
-                        'ean' => $partExists->ean,
-                        'url' => $fileName,
-                        'name' => $fileName,
-                    ]);
-
+                if ($partExists) {
+                    if ($partExists->image) {
+                        if ($partExists->image->trashed()) {
+                            $partExists->image->restore();
+                        }
+                        $partExists->image->touch();
+                    } else {
+                        Image::query()->create([
+                            'ean' => $partExists->ean,
+                            'url' => $fileName,
+                            'name' => $fileName,
+                        ]);
+                    }
                     Storage::disk('public')->put('parts/'.$fileName, file_get_contents($image));
-                } else {
-                    $partExists->image()->touch();
                 }
-
             }
 
             DB::commit();
