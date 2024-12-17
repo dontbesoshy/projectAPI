@@ -1961,9 +1961,6 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1975,7 +1972,7 @@
 										}
 									]
 								},
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -2025,8 +2022,17 @@
 										}
 									]
 								},
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "{{localhost}}/api/ad/orders/1",
 									"host": [

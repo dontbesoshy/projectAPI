@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use App\Exceptions\General\ModelNotFoundException;
 use App\Http\Dto\Order\OrderDto;
 use App\Http\Dto\Order\ShowOrderDto;
 use App\Models\Email;
@@ -32,11 +33,17 @@ class OrderService extends BasicService
      * Show order.
      *
      * @param Order $order
+     * @param ShowOrderDto $dto
      *
      * @return string
      */
-    public function show(Order $order)
+    public function show(Order $order, ShowOrderDto $dto): string
     {
+        $this->throwIf(
+            $order->user_id !== $dto->userId,
+            ModelNotFoundException::class
+        );
+
         return Storage::disk('local')->get($order->url);
     }
 

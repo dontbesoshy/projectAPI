@@ -58,8 +58,16 @@ class OrderController extends Controller
         return $this->orderService->generatePdf($request);
     }
 
-    public function show(Order $order)
+    /**
+     * Show order.
+     *
+     * @param Order $order
+     * @param ShowOrderDto $request
+     *
+     * @return string
+     */
+    public function show(Order $order, ShowOrderDto $request): string
     {
-        return $this->orderService->show($order);
+        return $this->orderService->show($order, $request);
     }
 }

@@ -24,7 +24,7 @@ Route::group(
         Route::post('makeOrder', [\App\Http\Controllers\Order\AD\OrderController::class, 'store']);
         Route::post('generatePdf', [\App\Http\Controllers\Order\AD\OrderController::class, 'generatePdf']);
         Route::post('orders', [\App\Http\Controllers\Order\AD\OrderController::class, 'index']);
-        Route::get('orders/{order}', [\App\Http\Controllers\Order\AD\OrderController::class, 'show']);
+        Route::post('orders/{order}', [\App\Http\Controllers\Order\AD\OrderController::class, 'show']);
         Route::post('users/{user}', [\App\Http\Controllers\User\AD\UserController::class, 'setNewPassword']);
         Route::get('users/{user}/getFavoriteParts', [\App\Http\Controllers\User\AD\UserController::class, 'getFavoriteParts']);
         Route::post('users/{user}/syncFavoriteParts', [\App\Http\Controllers\User\AD\UserController::class, 'syncFavoriteParts']);
