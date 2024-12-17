@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('price_list_id')->constrained();
+            $table->foreignId('price_list_id')->constrained()->onDelete('cascade');
             $table->string('ean')->nullable();
             $table->string('name')->nullable();
             $table->string('code')->index()->nullable();

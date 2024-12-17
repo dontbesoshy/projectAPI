@@ -236,15 +236,33 @@ class PriceListService extends BasicService
      */
     public function delete(PriceList $priceList): void
     {
-        $priceList->parts()->delete();
+        $partEans = $priceList->parts()->pluck('ean');
+
+        $priceList->users()->each(function (User $user) use ($partEans) {
+            if ($user->cart) {
+                $user->cart->delete();
+            }
+
+            $user->favoriteParts()->whereIn('ean', $partEans)->delete();
+        });
 
         DB::table('price_list_user')
             ->where('price_list_id', $priceList->id)
             ->delete();
 
-        $priceList->users()->each(function (User $user) {
-            $user->cart->delete();
-        });
+        $imageIdsToDelete = [];
+
+        Image::query()
+            ->whereIn('ean', $partEans)
+            ->withCount('parts')
+            ->having('parts_count', 1)
+            ->each(function (Image $image) use (&$imageIdsToDelete) {
+                $imageIdsToDelete[] = $image->id;
+            });
+
+        Image::query()->whereIn('id', $imageIdsToDelete)->delete();
+
+        $priceList->parts()->delete();
 
         $priceList->delete();
     }
