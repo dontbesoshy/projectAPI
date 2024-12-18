@@ -291,6 +291,8 @@ class PriceListService extends BasicService
      */
     public function attachUser(User $user, PriceList $priceList): void
     {
+        $user->cart()->delete();
+
         $user->priceLists()->sync($priceList);
     }
 }

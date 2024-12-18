@@ -3,9 +3,11 @@
 namespace App\Services\PriceList\AD;
 
 use App\Exceptions\User\UserDoesntHavePriceListException;
+use App\Models\PriceList;
 use App\Models\User\User;
 use App\Resources\PriceList\AD\PriceListResource;
 use App\Services\BasicService;
+use Illuminate\Support\Collection;
 
 class PriceListService extends BasicService
 {
@@ -18,20 +20,17 @@ class PriceListService extends BasicService
      */
     public function show(User $user): ?PriceListResource
     {
-        $priceList = $user->priceLists()->with('parts.image')->first();
+        $priceList = $user->priceLists()
+            ->with(['parts' => function ($query) {
+                $query->orderBy('name');
+            }, 'parts.image'])
+            ->first();
 
         if (!$priceList) {
-            return null;
+            throw new UserDoesntHavePriceListException();
         }
 
-        $uniqueParts = $priceList->parts;
-        $priceList->setRelation('parts', $uniqueParts);
-
-        $this->throwIf(
-            !$priceList,
-            UserDoesntHavePriceListException::class
-        );
-
         return new PriceListResource($priceList);
+
     }
 }
