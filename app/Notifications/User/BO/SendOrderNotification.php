@@ -3,6 +3,7 @@
 namespace App\Notifications\User\BO;
 
 use App\Http\Dto\Order\OrderDto;
+use App\Models\Order\Order;
 use App\Models\User\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,7 +17,7 @@ class SendOrderNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(private readonly OrderDto $dto)
+    public function __construct(private readonly OrderDto $dto, private readonly Order $order)
     {
     }
 
@@ -43,7 +44,7 @@ class SendOrderNotification extends Notification implements ShouldQueue
             ->line('--')
 
             ->attach(
-                storage_path('app/orders/' . str_replace(' ', '_', User::find($this->dto->userId)->company_name) . '_' . now()->format('d_m_Y_H') . '.pdf')
+                storage_path('app/'.$this->order->url)
             );
     }
 

@@ -118,20 +118,27 @@ class OrderService extends BasicService
 </div>
 ');
 
+        $orderCount = Order::query()->where('user_id', $user->id)
+            ->whereDate('created_at', now()->toDateString())
+            ->count();
+
+// Ustal numer kolejnego zamówienia
+        $increment = $orderCount + 1;
+
         Storage::disk('local')->put(
-            'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H').'.pdf', $pdf->stream()
+            'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_').$increment.'.pdf', $pdf->stream()
         );
 
         $order = Order::create([
             'user_id' => $user->id,
             'cart_id' => $user->cart->id,
             'comment' => substr($dto->comment, 0, 254),
-            'url' => 'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H').'.pdf'
+            'url' => 'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_').$increment.'.pdf',
         ]);
 
         Email::query()
-            ->each(function (Email $email) use ($dto) {
-                $email->notify(new SendOrderNotification($dto));
+            ->each(function (Email $email) use ($dto, $order) {
+                $email->notify(new SendOrderNotification($dto, $order));
             });
 
         $user->cart()->delete();
