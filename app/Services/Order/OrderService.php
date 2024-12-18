@@ -125,7 +125,7 @@ class OrderService extends BasicService
         $order = Order::create([
             'user_id' => $user->id,
             'cart_id' => $user->cart->id,
-            'comment' => $dto->comment,
+            'comment' => substr($dto->comment, 0, 254),
             'url' => 'orders/'.str_replace(' ', '_', $user->company_name).'_'.now()->format('d_m_Y_H').'.pdf'
         ]);
 
