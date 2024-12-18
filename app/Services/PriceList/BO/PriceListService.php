@@ -153,6 +153,7 @@ class PriceListService extends BasicService
                                 'ean' => $createData['ean'],
                                 'url' => $createData['ean'].'.jpg',
                                 'name' => $createData['ean'].'.jpg',
+                                'part_code' => $createData['code'],
                                 'updated_at' => now(),
                                 'created_at' => now(),
                             ]);
