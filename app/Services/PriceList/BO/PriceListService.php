@@ -213,6 +213,20 @@ class PriceListService extends BasicService
                 ->whereIn('id', collect($dto->parts)->pluck('id'))
                 ->each(function (Part $part) use ($dto) {
                     $partFromDto = $dto->parts->first(fn ($partDto) => $partDto->id === $part->id);
+
+                    $imageExists = Image::query()->where('part_code', $partFromDto->code)->first();
+
+                    if (!$imageExists) {
+                        Image::query()->create([
+                            'ean' => $partFromDto->ean,
+                            'url' => $partFromDto->code.'.jpg',
+                            'name' => $partFromDto->code.'.jpg',
+                            'part_code' => $partFromDto->code,
+                            'updated_at' => now(),
+                            'created_at' => now(),
+                        ]);
+                    }
+
                     $part->update([
                         'ean' => $partFromDto->ean,
                         'name' => $partFromDto->name,

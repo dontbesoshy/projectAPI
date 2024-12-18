@@ -36,6 +36,6 @@ class Part extends Model
      */
     public function image(): BelongsTo
     {
-        return $this->belongsTo(Image::class, 'ean', 'ean')->latest()->withTrashed();
+        return $this->belongsTo(Image::class, 'code', 'part_code')->latest()->withTrashed();
     }
 }
